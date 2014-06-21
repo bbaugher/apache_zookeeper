@@ -13,26 +13,24 @@ module ZookeeperHelper
     node.default["zookeeper"]["binary_url"] = "#{node["zookeeper"]["mirror"]}/zookeeper-#{node["zookeeper"]["version"]}/zookeeper-#{node["zookeeper"]["version"]}.tar.gz"
 
     # Make sure server ids are set or set them
-	if !node["zookeeper"]["zoo.cfg"].select{ |key, value| key.to_s.match(/\Aserver.\d+\z/)}.empty?
-	  log "Using given config for server ids"
-	elsif node["zookeeper"]["servers"].empty?
-		log "Configuring up single server zookeeper cluster"
-	  node["zookeeper"]["zoo.cfg"]["server.1"] = node["fqdn"]
-	else
-	  log "Configuring up mult-server zookeeper cluster"
-	  if node["zookeeper"]["servers"].include? node["fqdn"]
-	  	id = node["zookeeper"]["servers"].index node["fqdn"]
-	  	node["zookeeper"]["zoo.cfg"]["server.#{id}"] = node["fqdn"]
-	  elsif node["zookeeper"]["servers"].include? node["fqdn"]
-	  	id = node["zookeeper"]["servers"].index node["fqdn"]
-	  	node["zookeeper"]["zoo.cfg"]["server.#{id}"] = node["fqdn"]
-	  elsif node["zookeeper"]["servers"].include? node["fqdn"]
-	  	id = node["zookeeper"]["servers"].index node["fqdn"]
-	  	node["zookeeper"]["zoo.cfg"]["server.#{id}"] = node["fqdn"]
-	  else
-	  	raise "Unable to determine server id from list of servers [#{node["zookeeper"]["servers"]}]"
-	  end
-	end
+  	if !node["zookeeper"]["zoo.cfg"].select{ |key, value| key.to_s.match(/\Aserver.\d+\z/)}.empty?
+  	  log "Using given config for server ids"
+  	elsif node["zookeeper"]["servers"].empty?
+  		log "Configuring standalone zookeeper cluster"
+  	  node.default["zookeeper"]["zoo.cfg"]["server.1"] = "#{node["fqdn"]}:#{node["zookeeper"]["zoo.cfg"]["clientPort"]}"
+  	else
+  	  log "Configuring mult-server zookeeper cluster"
+
+  	  if !node["zookeeper"]["servers"].include? node["fqdn"] and !node["zookeeper"]["servers"].include? node["hostname"] and !node["zookeeper"]["servers"].include? node["ipaddress"]
+  	  	raise "Unable to determine server id for node from list of servers [#{node["zookeeper"]["servers"]}]"
+  	  end
+
+      id = 1
+      node["zookeeper"]["servers"].each do |server|
+        node.default["zookeeper"]["zoo.cfg"]["server.#{id}"] = "#{server}:#{node["zookeeper"]["zoo.cfg"]["clientPort"]}"
+        id = id + 1
+      end
+  	end
 
   end
 

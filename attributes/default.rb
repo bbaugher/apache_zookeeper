@@ -3,6 +3,11 @@
 default["zookeeper"]["user"] = "zookeeper"
 default["zookeeper"]["group"] = "zookeeper"
 
+default["zookeeper"]["open_file_limit"] = 32768
+default["zookeeper"]["max_processes"] = 1024
+
+default["zookeeper"]["env_vars"] = {}
+
 default["zookeeper"]["servers"] = []
 
 default["zookeeper"]["mirror"] = "http://apache.claz.org/zookeeper"
@@ -39,4 +44,4 @@ default["zookeeper"]["log4j.properties"]["log4j.appender.TRACEFILE"] = "org.apac
 default["zookeeper"]["log4j.properties"]["log4j.appender.TRACEFILE.Threshold"] = "TRACE"
 default["zookeeper"]["log4j.properties"]["log4j.appender.TRACEFILE.File"] = "${zookeeper.tracelog.dir}/${zookeeper.tracelog.file}"
 default["zookeeper"]["log4j.properties"]["log4j.appender.TRACEFILE.layout"] = "org.apache.log4j.PatternLayout"
-default["zookeeper"]["log4j.properties"]["log4j.appender.TRACEFILE.layout.ConversionPattern"] = "%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L][%x] - %m%n
+default["zookeeper"]["log4j.properties"]["log4j.appender.TRACEFILE.layout.ConversionPattern"] = "%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L][%x] - %m%n"

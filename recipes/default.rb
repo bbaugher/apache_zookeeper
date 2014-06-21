@@ -10,6 +10,10 @@ class ::Chef::Recipe
   include ::ZookeeperHelper
 end
 
+class ::Chef::Resource
+  include ::ZookeeperHelper
+end
+
 # Setup helper and include any nested default attributes
 setup_helper
 
@@ -22,7 +26,30 @@ group node["zookeeper"]["group"] do
 end
   
 user node["zookeeper"]["user"] do
+  comment "Zookeeper user"
   gid node["zookeeper"]["group"]
+  home "/home/#{node["zookeeper"]["user"]}"
+  supports :manage_home => true
+end
+
+# Create limits.d conf to set zookeeper open file limit and max processes
+template "/etc/security/limits.d/#{node["zookeeper"]["user"]}.conf" do
+  source "limits.conf.erb"
+  owner node["zookeeper"]["user"]
+  group node["zookeeper"]["group"]
+  mode "0755"
+  backup false
+  
+  notifies :restart, "service[zookeeper]"
+end
+
+# Configure zookeeper user's bash profile
+template "/home/#{node["zookeeper"]["user"]}/.bash_profile" do
+  source  "bash_profile.erb"
+  owner node["zookeeper"]["user"]
+  group node["zookeeper"]["group"]
+  mode  00755
+  notifies :restart, "service[zookeeper]"
 end
 
 # Download binary zip file
@@ -37,7 +64,6 @@ end
 
 # Install/Upgrade zookeeper installation
 bash "install/upgrade zookeeper" do
-  user node["zookeeper"]["user"]
   
   code <<-EOH
     rm -rf #{zookeeper_base}
@@ -81,14 +107,22 @@ template zookeeper_conf("zoo.cfg") do
   notifies :restart, "service[zookeeper]"
 end
 
-# Link zkServer.sh to /etc/init.d/zookeeper
-link "/etc/init.d/zookeeper" do
-  to zookeeper_bin("zkServer.sh")
+# Setup zookeeper's init script
+template "/etc/init.d/zookeeper" do
+  source  "init.erb"
+  group node["zookeeper"]["group"]
+  owner node["zookeeper"]["user"]
+  mode 00755
+  backup false
 end
 
-# Link zkCli.sh to /usr/bin/zkCli
-link "/usr/bin/zkCli" do
-  to zookeeper_bin("zkCli.sh")
+# Setup zookeeper's zkCli command
+template "/usr/bin/zkCli" do
+  source  "zkCli.erb"
+  group node["zookeeper"]["group"]
+  owner node["zookeeper"]["user"]
+  mode 00755
+  backup false
 end
 
 # Ensure everything is owned by zookeeper user/group
