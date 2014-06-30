@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[0.1.2](https://github.com/bbaugher/apache_zookeeper/issues?milestone=4&state=closed)
+-------------------------------------------------------------------------------------
+
+  * [Bug] [Issue-5](https://github.com/bbaugher/apache_zookeeper/issues/5) : Init script does not support chkconfig
+
 [0.1.1](https://github.com/bbaugher/apache_zookeeper/issues?milestone=3&state=closed)
 -------------------------------------------------------------------------------------
 
