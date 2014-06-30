@@ -1,2 +1,15 @@
 #!/bin/bash
+### BEGIN INIT INFO
+# Provides: zookeeper
+# Short-Description: Zookeeper
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# chkconfig: 2345 95 20
+# description: Zookeeper
+# processname: zookeeper
+### END INIT INFO
 <%= node["zookeeper"]["base_directory"] %>/bin/zkServer.sh $1
