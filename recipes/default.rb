@@ -24,7 +24,7 @@ include_recipe "java"
 group node["zookeeper"]["group"] do
   action :create
 end
-  
+
 user node["zookeeper"]["user"] do
   comment "Zookeeper user"
   gid node["zookeeper"]["group"]
@@ -39,7 +39,7 @@ template "/etc/security/limits.d/#{node["zookeeper"]["user"]}.conf" do
   group node["zookeeper"]["group"]
   mode "0755"
   backup false
-  
+
   notifies :restart, "service[zookeeper]"
 end
 
@@ -64,12 +64,12 @@ end
 
 # Install/Upgrade zookeeper installation
 bash "install/upgrade zookeeper" do
-  
+
   code <<-EOH
-    rm -rf #{zookeeper_base}
-    tar zxf #{zookeeper_tar_path} -C /tmp
-    mv /tmp/zookeeper-#{node["zookeeper"]["version"]} #{zookeeper_base}
-  EOH
+  rm -rf #{zookeeper_base}
+  tar zxf #{zookeeper_tar_path} -C /tmp
+  mv /tmp/zookeeper-#{node["zookeeper"]["version"]} #{zookeeper_base}
+    EOH
 
   only_if do
     !File.exists? zookeeper_base or zookeeper_version != node["zookeeper"]["version"]
@@ -105,6 +105,19 @@ template zookeeper_conf("zoo.cfg") do
   mode 00755
   backup false
   notifies :restart, "service[zookeeper]"
+end
+
+# Theres a strange chef/ruby issue where zookeeper_myid can't
+# get resolved inside of the file resource so we do this hack here
+id = zookeeper_myid
+
+# Create the zookeeper myid file
+file "#{node["zookeeper"]["zoo.cfg"]["dataDir"]}/myid" do
+  group node["zookeeper"]["group"]
+  owner node["zookeeper"]["user"]
+  content id
+  mode 00755
+  backup false
 end
 
 # Setup zookeeper's init script
