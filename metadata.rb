@@ -7,4 +7,4 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
 depends "java"
 
-version          '0.1.3'
+version          '0.2.0'
