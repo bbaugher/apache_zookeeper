@@ -3,8 +3,6 @@
 # Recipe:: default
 #
 
-require 'pathname'
-
 # include helper methods
 class ::Chef::Recipe
   include ::ZookeeperHelper
