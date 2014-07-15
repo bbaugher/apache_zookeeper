@@ -26,6 +26,16 @@ You can also provide the server ids yourself by including values for the attribu
 `node["zookeeper"]["zoo.cfg"]["server.[ID]"]`. If this is done you don't have to provide the 
 `node["zookeeper"]["servers"]` attribute.
 
+What does the installation look like
+------------------------------------
+
+By default the installation will look like,
+
+    zkCli | /usr/bin/zkCli  - The Zookeeper cli binary command
+    /opt/zookeeper/*        - All of Zookeeper's files (config, binaries, event handlers, logs...)
+    /etc/init.d/zookeeper   - An init.d script to start/stop zookeeper. You can use service 
+    				        zookeeper [start|stop|restart|status] instead
+
 Quorum and Leader Election Ports
 --------------------------------
 
@@ -39,16 +49,6 @@ or
 
     node["zookeeper"]["zoo.cfg"]["server.1"] = "host1:2188:3188"
     ...
-
-What does the installation look like
-------------------------------------
-
-By default the installation will look like,
-
-    zkCli | /usr/bin/zkCli  - The Zookeeper cli binary command
-    /opt/zookeeper/*        - All of Zookeeper's files (config, binaries, event handlers, logs...)
-    /etc/init.d/zookeeper   - An init.d script to start/stop zookeeper. You can use service 
-    				        zookeeper [start|stop|restart|status] instead
 
 Attributes
 ----------
