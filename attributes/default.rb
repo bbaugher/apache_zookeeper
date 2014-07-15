@@ -1,4 +1,4 @@
-# coding: UTF-8 
+# coding: UTF-8
 
 default["zookeeper"]["user"] = "zookeeper"
 default["zookeeper"]["group"] = "zookeeper"
@@ -19,6 +19,8 @@ default["zookeeper"]["zoo.cfg"]["clientPort"] = 2181
 default["zookeeper"]["zoo.cfg"]["dataDir"] = "/var/zookeeper"
 default["zookeeper"]["zoo.cfg"]["tickTime"] = 2000
 default["zookeeper"]["zoo.cfg"]["autopurge.purgeInterval"] = 24
+default["zookeeper"]["zoo.cfg"]["initLimit"] = 10
+default["zookeeper"]["zoo.cfg"]["syncLimit"] = 5
 
 # Settings from default zookeeper installation
 default["zookeeper"]["log4j.properties"]["zookeeper.root.logger"] = "INFO, CONSOLE, ROLLINGFILE"
