@@ -26,6 +26,20 @@ You can also provide the server ids yourself by including values for the attribu
 `node["zookeeper"]["zoo.cfg"]["server.[ID]"]`. If this is done you don't have to provide the 
 `node["zookeeper"]["servers"]` attribute.
 
+Quorum and Leader Election Ports
+--------------------------------
+
+It is possible to provide the quorum and leader election ports via `node["zookeeper"]["servers"]` attribute 
+or `node["zookeeper"]["zoo.cfg"]["server.[ID]"]` by specifying the hostname followed by the quorum and 
+leader election ports like this,
+
+    node["zookeeper"]["servers"] = ["host1:2188:3188", "host2:2188:3188", "host3:2188:3188"]
+
+or
+
+    node["zookeeper"]["zoo.cfg"]["server.1"] = "host1:2188:3188"
+    ...
+
 What does the installation look like
 ------------------------------------
 
