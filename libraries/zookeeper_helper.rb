@@ -19,7 +19,7 @@ module ZookeeperHelper
       log "Using given zoo.cfg config for server ids"
 
       node["zookeeper"]["zoo.cfg"].select{ |key, value| key.to_s.match(/\Aserver.\d+\z/)}.each do |key, value|
-        if value == node["fqdn"] || value == node["hostname"] || value == node["ipaddress"]
+        if does_server_match_node? value
           @zookeeper_myid = key["server.".size, key.size]
           break
         end
@@ -38,7 +38,7 @@ module ZookeeperHelper
       node["zookeeper"]["servers"].each do |server|
         node.default["zookeeper"]["zoo.cfg"]["server.#{id}"] = "#{server}:#{node["zookeeper"]["zoo.cfg"]["clientPort"]}"
 
-        if node["zookeeper"]["servers"].include?(node["fqdn"]) || node["zookeeper"]["servers"].include?(node["hostname"]) || node["zookeeper"]["servers"].include?(node["ipaddress"])
+        if does_server_match_node? server
           @zookeeper_myid = id.to_s
         end
 
@@ -80,6 +80,15 @@ module ZookeeperHelper
     end
 
     "N/A"
+  end
+
+  private
+
+  def does_server_match_node? server
+    # We check that the server value is either the nodes fqdn, hostname or ipaddress. We also check if instead the
+    # value is of the form [HOST]:[PORT]:[PORT] which is also valid in the case of defining quorum and leader election ports
+    server == node["fqdn"] || server.start_with?("#{node["fqdn"]}:") || server == node["hostname"] ||
+      server.start_with?("#{node["hostname"]}:") || server == node["ipaddress"] || server.start_with?("#{node["ipaddress"]}:")
   end
 
 end
