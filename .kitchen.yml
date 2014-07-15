@@ -12,6 +12,8 @@ platforms:
 suites:
   - name: default
     run_list:
+      # We only include apt because of an issue installing java where ubuntu 
+      # requires an apt-get update in order to successfully run
       - recipe[apt]
       - recipe[apache_zookeeper]
     attributes:
