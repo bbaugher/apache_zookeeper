@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
 depends "java"
 
-%w{ ubuntu debian redhat centos }.each do |os|
+%w{ ubuntu centos }.each do |os|
   supports os
 end
 
