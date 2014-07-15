@@ -12,7 +12,13 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[apache_zookeeper::default]
+      - recipe[apt]
+      - recipe[apache_zookeeper]
     attributes:
       java:
         jdk_version: "7"
+      zookeeper:
+        zoo.cfg:
+          bogus.for.cfg: value1
+        log4j.properties:
+          bogus.for.log4j: value2
