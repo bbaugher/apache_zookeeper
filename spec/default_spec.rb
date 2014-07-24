@@ -19,6 +19,28 @@ describe 'apache_zookeeper::default' do
       content: '1'
     )
 
+    expect(chef_run.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'chefspec:2888:3888')
+
+  end
+
+  it 'has servers attribute and sets follower/election ports' do
+    chef = ChefSpec::Runner.new do |node|
+      node.set['zookeeper']['servers'] = ['chefspec']
+      node.set['zookeeper']['follower_port'] = 1234
+      node.set['zookeeper']['election_port'] = 4321
+    end
+
+    chef.converge(described_recipe)
+
+    expect(chef).to create_file('/var/zookeeper/myid').with(
+      user:   'zookeeper',
+      group:  'zookeeper',
+      backup: false,
+      content: '1'
+    )
+
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'chefspec:1234:4321')
+
   end
 
   it 'includes many servers' do
@@ -34,6 +56,10 @@ describe 'apache_zookeeper::default' do
       backup: false,
       content: '3'
     )
+
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'other1:2888:3888')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'other2:2888:3888')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'chefspec:2888:3888')
 
   end
 
@@ -51,11 +77,15 @@ describe 'apache_zookeeper::default' do
       content: '2'
     )
 
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'other1:2888:3888')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'chefspec:2888:3888')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'other2:2888:3888')
+
   end
 
   it 'includes many servers with leader and quorum ports' do
     chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['servers'] = ['other1:2888:3188', 'other2:2888:3188', 'chefspec:2888:3188']
+      node.set['zookeeper']['servers'] = ['other1:2881:3881', 'other2:2882:3882', 'chefspec:2883:3883']
     end
 
     chef.converge(described_recipe)
@@ -66,6 +96,10 @@ describe 'apache_zookeeper::default' do
       backup: false,
       content: '3'
     )
+
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'other1:2881:3881')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'other2:2882:3882')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'chefspec:2883:3883')
 
   end
 
@@ -79,7 +113,7 @@ describe 'apache_zookeeper::default' do
       user:   'zookeeper',
       group:  'zookeeper',
       backup: false,
-      content: '1'
+      content: nil
     )
 
   end
@@ -102,9 +136,9 @@ describe 'apache_zookeeper::default' do
 
   it 'has many zoo.cfg server.X config' do
     chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1'
-      node.set['zookeeper']['zoo.cfg']['server.2'] = 'other2'
-      node.set['zookeeper']['zoo.cfg']['server.3'] = 'chefspec'
+      node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1:2888:3888'
+      node.set['zookeeper']['zoo.cfg']['server.2'] = 'other2:2888:3888'
+      node.set['zookeeper']['zoo.cfg']['server.3'] = 'chefspec:2888:3888'
     end
 
     chef.converge(described_recipe)
@@ -120,9 +154,9 @@ describe 'apache_zookeeper::default' do
 
   it 'has many zoo.cfg server.X config and is not last' do
     chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1'
-      node.set['zookeeper']['zoo.cfg']['server.2'] = 'chefspec'
-      node.set['zookeeper']['zoo.cfg']['server.3'] = 'other2'
+      node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1:2888:3888'
+      node.set['zookeeper']['zoo.cfg']['server.2'] = 'chefspec:2888:3888'
+      node.set['zookeeper']['zoo.cfg']['server.3'] = 'other2:2888:3888'
     end
 
     chef.converge(described_recipe)
@@ -132,24 +166,6 @@ describe 'apache_zookeeper::default' do
       group:  'zookeeper',
       backup: false,
       content: '2'
-    )
-
-  end
-
-  it 'has many zoo.cfg server.X config with leader and quorum ports' do
-    chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1:2188:3188'
-      node.set['zookeeper']['zoo.cfg']['server.2'] = 'other2:2188:3188'
-      node.set['zookeeper']['zoo.cfg']['server.3'] = 'chefspec:2188:3188'
-    end
-
-    chef.converge(described_recipe)
-
-    expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
-      group:  'zookeeper',
-      backup: false,
-      content: '3'
     )
 
   end

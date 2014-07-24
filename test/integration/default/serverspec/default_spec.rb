@@ -34,7 +34,12 @@ describe file('/var/zookeeper/myid') do
   it { should be_file }
   it { should be_owned_by 'zookeeper' }
   it { should be_grouped_into 'zookeeper' }
-  it { should contain '1' }
+end
+
+describe file('/opt/zookeeper/logs/zookeeper.log') do
+  it { should be_file }
+  it { should be_owned_by 'zookeeper' }
+  it { should be_grouped_into 'zookeeper' }
 end
 
 describe 'zookeeper' do

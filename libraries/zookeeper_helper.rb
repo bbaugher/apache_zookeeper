@@ -11,6 +11,10 @@ module ZookeeperHelper
     chef_gem "xml-simple"
     require 'xmlsimple'
 
+    # Define log_directory and ZOO_LOG_DIR
+    node.default["zookeeper"]["log_directory"] = ::File.join node["zookeeper"]["base_directory"], "logs"
+    node.default["zookeeper"]["env_vars"]["ZOO_LOG_DIR"] = node["zookeeper"]["log_directory"]
+
     # Build out binary url
     node.default["zookeeper"]["binary_url"] = "#{node["zookeeper"]["mirror"]}/zookeeper-#{node["zookeeper"]["version"]}/zookeeper-#{node["zookeeper"]["version"]}.tar.gz"
 
@@ -29,14 +33,17 @@ module ZookeeperHelper
 
     elsif node["zookeeper"]["servers"].empty?
       log "Configuring standalone zookeeper cluster"
-      node.default["zookeeper"]["zoo.cfg"]["server.1"] = "#{node["fqdn"]}:#{node["zookeeper"]["zoo.cfg"]["clientPort"]}"
-      @zookeeper_myid = '1'
     else
       log "Configuring mult-server zookeeper cluster"
 
       id = 1
       node["zookeeper"]["servers"].each do |server|
-        node.default["zookeeper"]["zoo.cfg"]["server.#{id}"] = "#{server}:#{node["zookeeper"]["zoo.cfg"]["clientPort"]}"
+        if server.include? ":"
+          # If they include port information in their list of servers just use the raw value
+          node.default["zookeeper"]["zoo.cfg"]["server.#{id}"] = server
+        else
+          node.default["zookeeper"]["zoo.cfg"]["server.#{id}"] = "#{server}:#{node["zookeeper"]["follower_port"]}:#{node["zookeeper"]["election_port"]}"
+        end
 
         if does_server_match_node? server
           @zookeeper_myid = id.to_s

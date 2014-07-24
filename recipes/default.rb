@@ -26,6 +26,7 @@ end
 user node["zookeeper"]["user"] do
   comment "Zookeeper user"
   gid node["zookeeper"]["group"]
+  shell "/bin/bash"
   home "/home/#{node["zookeeper"]["user"]}"
   supports :manage_home => true
 end
@@ -78,6 +79,15 @@ end
 
 # Ensure data directory is created
 directory node["zookeeper"]["zoo.cfg"]["dataDir"] do
+  group node["zookeeper"]["group"]
+  owner node["zookeeper"]["user"]
+  mode 00755
+  recursive true
+  action :create
+end
+
+# Ensure log directory is created
+directory node["zookeeper"]["log_directory"] do
   group node["zookeeper"]["group"]
   owner node["zookeeper"]["user"]
   mode 00755

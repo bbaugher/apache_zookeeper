@@ -36,10 +36,10 @@ By default the installation will look like,
     /etc/init.d/zookeeper   - An init.d script to start/stop zookeeper. You can use service 
     				        zookeeper [start|stop|restart|status] instead
 
-Quorum and Leader Election Ports
---------------------------------
+Unique Quorum and Leader Election Ports
+---------------------------------------
 
-It is possible to provide the quorum and leader election ports via `node["zookeeper"]["servers"]` attribute 
+It is possible to provide unique quorum and leader election ports via `node["zookeeper"]["servers"]` attribute 
 or `node["zookeeper"]["zoo.cfg"]["server.[ID]"]` by specifying the hostname followed by the quorum and 
 leader election ports like this,
 
@@ -50,6 +50,17 @@ or
     node["zookeeper"]["zoo.cfg"]["server.1"] = "host1:2188:3188"
     ...
 
+Environment Variables
+---------------------
+
+Should note that the `zkServer.sh` and other various scripts provided by zookeeper taken in various environment variables to tweak 
+runtime settings. Here are some,
+
+ * `ZOO_LOG_DIR` : Overwrites log4j `zookeeper.log.file`. Defaults to `.` if not set which is why we provide a default value for it to the `node["zookeeper"]["log_directory"]` value.
+ * `ZOO_LOG4J_PROP` : Overwrites log4j `zookeeper.root.logger`. Defaults to `'INFO, CONSOLE'` if not set which is why we provide a default value for it `'INFO,CONSOLE,ROLLINGFILE'`
+ * `JMXDISABLE` : Disables jmx. Defaults to enabling JMX. To disable set to any value
+ * `SERVER_JVMFLAGS` : JVM flags for the server process
+
 Attributes
 ----------
 
@@ -57,11 +68,13 @@ Attributes
  * `node["zookeeper"]["group"]` : The group that owns the Zookeeper installation (default="zookeeper")
  * `node["zookeeper"]["open_file_limit"]` : The open file limit for the zookeeper user (default=32768)
  * `node["zookeeper"]["max_processes"]` : The max processes limit for the zookeeper user (default=1024)
- * `node["zookeeper"]["env_vars"]` : The environment variables set for the zookeeper user (default={})
- * `node["zookeeper"]["servers"]` : The array of fqdn/hostnames/ips for the zookeeper servers in the cluster
- * `node["zookeeper"]["mirror"]` : The mirror used to download the binary (default="http://apache.claz.org/zookeeper")
+ * `node["zookeeper"]["env_vars"]` : The environment variables set for the zookeeper user (default={"ZOO_LOG_DIR" => `node["zookeeper"]["log_directory"]`, "ZOO_LOG4J_PROP" => "'INFO, CONSOLE, ROLLINGFILE'"})
+ * `node["zookeeper"]["servers"]` : The array of fqdn/hostnames/ips for the zookeeper servers in the cluster (default=[])
+ * `node["zookeeper"]["follower_port"]` : The port used by zookeeper followers (default=2888)
+ * `node["zookeeper"]["election_port"]` : The port used for zookeeper elections (default=3888)
  * `node["zookeeper"]["version"]` : The version of the Serf agent to install (default="3.4.5")
  * `node["zookeeper"]["binary_url"]` : The full binary url of Zookeeper. If you override this value make sure to provide a valid and up to date value for `node["zookeeper"]["version"]` (default=`File.join node["zookeeper"]["mirror"], "zookeeper-#{node["zookeeper"]["version"]}", "zookeeper-#{node["zookeeper"]["version"]}.tar.gz"`)
  * `node["zookeeper"]["base_directory"]` : The base directory Zookeeper should be installed into (default="/opt/zookeeper")
+ * `node["zookeeper"]["log_directory"]` : The log directory for Zookeeper (default=`"#{node["zookeeper"]["base_directory"]}/logs"`)
  * `node["zookeeper"]["zoo.cfg"][*]` : The key/values set for the `zoo.cfg` config file (see attributes file for defaults)
  * `node["zookeeper"]["log4j.properties"][*]` : The key/values set for the `log4j.properties` config file (see attributes file for defaults)
