@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+[0.2.1](https://github.com/bbaugher/apache_zookeeper/issues?milestone=7&state=closed)
+-------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-9](https://github.com/bbaugher/apache_zookeeper/issues/9) : Set zookeeper log directory by default
+  * [Bug] [Issue-8](https://github.com/bbaugher/apache_zookeeper/issues/8) : Client port is always appended to hosts
+  * [Enhancement] [Issue-2](https://github.com/bbaugher/apache_zookeeper/issues/2) : Add tests
+
 [0.2.0](https://github.com/bbaugher/apache_zookeeper/issues?milestone=2&state=closed)
 -------------------------------------------------------------------------------------
 
