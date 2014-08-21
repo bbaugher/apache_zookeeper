@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[0.2.2](https://github.com/bbaugher/apache_zookeeper/issues?milestone=8&state=closed)
+-------------------------------------------------------------------------------------
+
+  * [Bug] [Issue-11](https://github.com/bbaugher/apache_zookeeper/issues/11) : Release without PaxHeaders
+
 [0.2.1](https://github.com/bbaugher/apache_zookeeper/issues?milestone=7&state=closed)
 -------------------------------------------------------------------------------------
 
