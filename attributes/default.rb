@@ -6,7 +6,7 @@ default["zookeeper"]["group"] = "zookeeper"
 default["zookeeper"]["open_file_limit"] = 32768
 default["zookeeper"]["max_processes"] = 1024
 
-default["zookeeper"]["env_vars"]["ZOO_LOG4J_PROP"] = "INFO,CONSOLE,ROLLINGFILE"
+default["zookeeper"]["env_vars"]["ZOO_LOG4J_PROP"] = "INFO,ROLLINGFILE"
 
 default["zookeeper"]["servers"] = []
 default["zookeeper"]["follower_port"] = 2888
