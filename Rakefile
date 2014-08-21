@@ -7,7 +7,6 @@ VERSION_REGEX = /\d+\.\d+\.\d+/
 REPO = "bbaugher/apache_zookeeper"
 
 task :release do
-  
   version = cookbook_version
   
   # Update change log
@@ -17,7 +16,7 @@ task :release do
   
   # Share the cookbook
   puts "Sharing cookbook ..."
-  run_command "knife cookbook site share apache_zookeeper Applications -o .."
+  run_command "stove --no-git --username bbaugher --key ~/.chef/bbaugher.pem"
   puts "Shared cookbook!"
  
   # Tag the release
