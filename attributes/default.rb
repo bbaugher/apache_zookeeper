@@ -12,7 +12,7 @@ default["zookeeper"]["servers"] = []
 default["zookeeper"]["follower_port"] = 2888
 default["zookeeper"]["election_port"] = 3888
 
-default["zookeeper"]["mirror"] = "http://apache.claz.org/zookeeper"
+default["zookeeper"]["mirror"] = "http://archive.apache.org/dist/zookeeper"
 default["zookeeper"]["version"] = "3.4.5"
 
 default["zookeeper"]["base_directory"] = "/opt/zookeeper"
