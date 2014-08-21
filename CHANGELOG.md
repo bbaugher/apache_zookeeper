@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[0.3.0](https://github.com/bbaugher/apache_zookeeper/issues?milestone=6&state=closed)
+-------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-10](https://github.com/bbaugher/apache_zookeeper/issues/10) : Additional attribute tweaks
+
 [0.2.2](https://github.com/bbaugher/apache_zookeeper/issues?milestone=8&state=closed)
 -------------------------------------------------------------------------------------
 
