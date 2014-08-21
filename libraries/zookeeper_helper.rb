@@ -92,10 +92,24 @@ module ZookeeperHelper
   private
 
   def does_server_match_node? server
-    # We check that the server value is either the nodes fqdn, hostname or ipaddress. We also check if instead the
-    # value is of the form [HOST]:[PORT]:[PORT] which is also valid in the case of defining quorum and leader election ports
-    server == node["fqdn"] || server.start_with?("#{node["fqdn"]}:") || server == node["hostname"] ||
-      server.start_with?("#{node["hostname"]}:") || server == node["ipaddress"] || server.start_with?("#{node["ipaddress"]}:")
+    # We check that the server value is either the nodes fqdn, hostname or ipaddress.
+    identities = [node["fqdn"], node["hostname"], node["ipaddress"]]
+
+    # We also include ec2 identities as well
+    identities << node["machinename"] if node.attribute?("machinename")
+    identities << node["ec2"]["public_hostname"] if node.attribute?("ec2") && node["ec2"].attributes?("public_hostname")
+    identities << node["ec2"]["public_ipv4"] if node.attribute?("ec2") && node["ec2"].attributes?("public_ipv4")
+
+    identities.each do |id|
+      # We also check if instead the value is of the form [HOST]:[PORT]:[PORT] which is also 
+      # valid in the case of defining quorum and leader election ports
+      if server == id || server.start_with?("#{id}:")
+        return true
+      end
+    end
+
+    # Nothing matched
+    false
   end
 
 end
