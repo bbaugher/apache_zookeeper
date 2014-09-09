@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[0.3.2](https://github.com/bbaugher/apache_zookeeper/issues?milestone=10&state=closed)
+--------------------------------------------------------------------------------------
+
+  * [Bug] [Issue-16](https://github.com/bbaugher/apache_zookeeper/issues/16) : Version fix
+
 [0.3.1](https://github.com/bbaugher/apache_zookeeper/issues?milestone=9&state=closed)
 -------------------------------------------------------------------------------------
 
