@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[0.3.1](https://github.com/bbaugher/apache_zookeeper/issues?milestone=9&state=closed)
+-------------------------------------------------------------------------------------
+
+  * [Bug] [Issue-14](https://github.com/bbaugher/apache_zookeeper/issues/14) : `attributes?` not a method -- affects ec2 provisioning
+
 [0.3.0](https://github.com/bbaugher/apache_zookeeper/issues?milestone=6&state=closed)
 -------------------------------------------------------------------------------------
 
