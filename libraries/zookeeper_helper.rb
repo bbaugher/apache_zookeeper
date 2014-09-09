@@ -97,11 +97,11 @@ module ZookeeperHelper
 
     # We also include ec2 identities as well
     identities << node["machinename"] if node.attribute?("machinename")
-    identities << node["ec2"]["public_hostname"] if node.attribute?("ec2") && node["ec2"].attributes?("public_hostname")
-    identities << node["ec2"]["public_ipv4"] if node.attribute?("ec2") && node["ec2"].attributes?("public_ipv4")
+    identities << node["ec2"]["public_hostname"] if node.attribute?("ec2") && node["ec2"].attribute?("public_hostname")
+    identities << node["ec2"]["public_ipv4"] if node.attribute?("ec2") && node["ec2"].attribute?("public_ipv4")
 
     identities.each do |id|
-      # We also check if instead the value is of the form [HOST]:[PORT]:[PORT] which is also 
+      # We also check if instead the value is of the form [HOST]:[PORT]:[PORT] which is also
       # valid in the case of defining quorum and leader election ports
       if server == id || server.start_with?("#{id}:")
         return true
