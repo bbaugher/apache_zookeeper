@@ -32,7 +32,7 @@ What does the installation look like
 By default the installation will look like,
 
     zkCli | /usr/bin/zkCli  - The Zookeeper cli binary command
-    /opt/zookeeper/*        - All of Zookeeper's files (config, binaries, event handlers, logs...)
+    /opt/zookeeper/*        - All of Zookeeper's files (config, binaries, logs...)
     /etc/init.d/zookeeper   - An init.d script to start/stop zookeeper. You can use service 
     				        zookeeper [start|stop|restart|status] instead
 
