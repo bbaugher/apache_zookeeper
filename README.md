@@ -43,11 +43,11 @@ It is possible to provide unique quorum and leader election ports via `node["zoo
 or `node["zookeeper"]["zoo.cfg"]["server.[ID]"]` by specifying the hostname followed by the quorum and 
 leader election ports like this,
 
-    node["zookeeper"]["servers"] = ["host1:2188:3188", "host2:2188:3188", "host3:2188:3188"]
+    node["zookeeper"]["servers"] = ["host1:2888:3888", "host2:2888:3888", "host3:2888:3888"]
 
 or
 
-    node["zookeeper"]["zoo.cfg"]["server.1"] = "host1:2188:3188"
+    node["zookeeper"]["zoo.cfg"]["server.1"] = "host1:2888:3888"
     ...
 
 Environment Variables
