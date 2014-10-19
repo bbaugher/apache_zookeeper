@@ -93,7 +93,13 @@ module ZookeeperHelper
 
   def does_server_match_node? server
     # We check that the server value is either the nodes fqdn, hostname or ipaddress.
-    identities = [node["fqdn"], node["hostname"], node["ipaddress"]]
+    identities = [node["fqdn"], node["hostname"]]
+
+    node["network"]["interfaces"].each_value do |interface|
+      interface["addresses"].each_key do |address|
+          identities << address
+      end
+    end
 
     # We also include ec2 identities as well
     identities << node["machinename"] if node.attribute?("machinename")
