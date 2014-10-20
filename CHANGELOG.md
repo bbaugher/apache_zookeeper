@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+[0.4.0 - 10-20-2014](https://github.com/bbaugher/apache_zookeeper/issues?milestone=11&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-19](https://github.com/bbaugher/apache_zookeeper/issues/19) : Documentation update for default ports
+  * [Enhancement] [Issue-18](https://github.com/bbaugher/apache_zookeeper/issues/18) : Match any IP address, not just the default
+
 [0.3.2 - 09-09-2014](https://github.com/bbaugher/apache_zookeeper/issues?milestone=10&state=closed)
 ---------------------------------------------------------------------------------------------------
 
@@ -52,4 +58,3 @@ Change Log
 --------------------------------------------------------------------------------------------------
 
   * [Feature] [Issue-1](https://github.com/bbaugher/apache_zookeeper/issues/1) : Initial Cookbook
-
