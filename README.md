@@ -39,16 +39,21 @@ By default the installation will look like,
 Unique Quorum and Leader Election Ports
 ---------------------------------------
 
-It is possible to provide unique quorum and leader election ports via `node["zookeeper"]["servers"]` attribute 
-or `node["zookeeper"]["zoo.cfg"]["server.[ID]"]` by specifying the hostname followed by the quorum and 
-leader election ports like this,
+It is possible to provide unique quorum and leader election ports in a few different ways.
 
-    node["zookeeper"]["servers"] = ["host1:2888:3888", "host2:2888:3888", "host3:2888:3888"]
+    node["zookeepers"]["servers"] = ["host1", "host2", "host3"]
+    node["zookeeper"]["follower_port"] = 2888
+    node["zookeeper"]["election_port"] = 3888
 
-or
+OR
+
+    node["zookeepers"]["servers"] = ["host1:2888:3888", "host2:2888:3888", "host3:2888:3888"]
+
+OR
 
     node["zookeeper"]["zoo.cfg"]["server.1"] = "host1:2888:3888"
-    ...
+    node["zookeeper"]["zoo.cfg"]["server.2"] = "host2:2888:3888"
+    node["zookeeper"]["zoo.cfg"]["server.3"] = "host3:2888:3888"
 
 Environment Variables
 ---------------------
