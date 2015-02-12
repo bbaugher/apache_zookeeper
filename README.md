@@ -19,8 +19,20 @@ Usage
 Using the default attributes will setup a single Zookeeper server in standalone mode.
 
 If you are wanting to setup Zookeeper in a multi-server cluster make sure to fill out the 
-`node["zookeeper"]["servers"]` attribute with an array of fqdn/hostnames/ips/machinename/ec2_hostname/ec2_ip 
-of your zookeeper servers. This array is used to calculate the server ids for each zookeeper.
+`node["zookeeper"]["servers"]` like this,
+
+    node["zookeeper"]["servers"] = ["myzkhost1.com", "myzkhost2.com", myzkhost3.com"]
+
+The array should include a value per server and can be any of the following values,
+
+ * FQDN - `node['fqdn']`
+ * Host Name - `node['hostname']`
+ * Machine Name - `node['machinename']`
+ * Any network interface - `node["network"]["interfaces"][..]`
+ * EC2 Host Name - `node['ec2']['public_hostname']`
+ * EC2 IP Address - `node['ec2']['public_ipv4']`
+
+This array is used to configure/calculate the server ids for each zookeeper.
 
 You can also provide the server ids yourself by including values for the attributes 
 `node["zookeeper"]["zoo.cfg"]["server.[ID]"]`. If this is done you don't have to provide the 
