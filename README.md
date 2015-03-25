@@ -53,13 +53,13 @@ Unique Quorum and Leader Election Ports
 
 It is possible to provide unique quorum and leader election ports in a few different ways.
 
-    node["zookeepers"]["servers"] = ["host1", "host2", "host3"]
+    node["zookeeper"]["servers"] = ["host1", "host2", "host3"]
     node["zookeeper"]["follower_port"] = 2888
     node["zookeeper"]["election_port"] = 3888
 
 OR
 
-    node["zookeepers"]["servers"] = ["host1:2888:3888", "host2:2888:3888", "host3:2888:3888"]
+    node["zookeeper"]["servers"] = ["host1:2888:3888", "host2:2888:3888", "host3:2888:3888"]
 
 OR
 
