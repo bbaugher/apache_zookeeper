@@ -3,8 +3,8 @@
 default["zookeeper"]["user"] = "zookeeper"
 default["zookeeper"]["group"] = "zookeeper"
 
-default["zookeeper"]["open_file_limit"] = 32768
-default["zookeeper"]["max_processes"] = 1024
+default["ulimit"]["users"][node["zookeeper"]["user"]]["filehandle_limit"] = 32768
+default["ulimit"]["users"][node["zookeeper"]["user"]]["process_limit"] = 1024
 
 default["zookeeper"]["env_vars"]["ZOO_LOG4J_PROP"] = "INFO,ROLLINGFILE"
 

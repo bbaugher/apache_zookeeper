@@ -31,16 +31,7 @@ user node["zookeeper"]["user"] do
   supports :manage_home => true
 end
 
-# Create limits.d conf to set zookeeper open file limit and max processes
-template "/etc/security/limits.d/#{node["zookeeper"]["user"]}.conf" do
-  source "limits.conf.erb"
-  owner node["zookeeper"]["user"]
-  group node["zookeeper"]["group"]
-  mode "0755"
-  backup false
-
-  notifies :restart, "service[zookeeper]"
-end
+include_recipe "ulimit"
 
 # Configure zookeeper user's bash profile
 template "/home/#{node["zookeeper"]["user"]}/.bash_profile" do

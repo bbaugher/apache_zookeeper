@@ -1,6 +1,11 @@
 ---
 driver:
   name: vagrant
+driver_config:
+  customize:
+    # Configure network interface to use hosts DNS resolver.  Doing this makes installing Gems and other network tasks significantly faster.
+    natdnsproxy1: 'off'
+    natdnshostresolver1: 'off'
 
 provisioner:
   name: chef_solo

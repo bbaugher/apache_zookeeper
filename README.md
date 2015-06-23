@@ -83,8 +83,6 @@ Attributes
 
  * `node["zookeeper"]["user"]` : The user that owns the Zookeeper installation (default="zookeeper")
  * `node["zookeeper"]["group"]` : The group that owns the Zookeeper installation (default="zookeeper")
- * `node["zookeeper"]["open_file_limit"]` : The open file limit for the zookeeper user (default=32768)
- * `node["zookeeper"]["max_processes"]` : The max processes limit for the zookeeper user (default=1024)
  * `node["zookeeper"]["env_vars"]` : The environment variables set for the zookeeper user (default={"ZOO_LOG_DIR" => `node["zookeeper"]["log_directory"]`, "ZOO_LOG4J_PROP" => "'INFO, CONSOLE, ROLLINGFILE'"})
  * `node["zookeeper"]["servers"]` : The array of fqdn/hostnames/ips for the zookeeper servers in the cluster (default=[])
  * `node["zookeeper"]["follower_port"]` : The port used by zookeeper followers (default=2888)
