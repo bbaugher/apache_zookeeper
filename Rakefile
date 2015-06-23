@@ -6,7 +6,44 @@ VERSION_REGEX = /\d+\.\d+\.\d+/
 
 REPO = "bbaugher/apache_zookeeper"
 
+task :install do
+  puts "Installing development gems ..."
+  exit 1 unless system("bundle install --path vendor/bundle")
+end
+
+task :unit_test do
+  puts "Running Unit Tests ..."
+  exit 1 unless system("bundle exec rspec")
+end
+
+task :integration_test do
+  puts "Running Integration Tests ..."
+  exit 1 unless system("bundle exec kitchen test")
+end
+
+task :lint_test do
+  puts "Running Lint Tests ..."
+  exit 1 unless system("bundle exec foodcritic . -f any")
+end
+
+task :test do
+  puts "Running All Tests"
+
+  %w{ unit_test lint_test integration_test}.each do |task|
+    Rake::Task[task].invoke
+  end
+
+end
+
 task :release do
+  puts "Releasing the cookbook ..."
+
+  if ENV["SKIP_TESTS"]
+    puts "Skipping tests since SKIP_TESTS is set"
+  else
+    Rake::Task["test"].invoke
+  end
+
   version = cookbook_version
   
   # Update change log
@@ -16,7 +53,7 @@ task :release do
   
   # Share the cookbook
   puts "Sharing cookbook ..."
-  run_command "stove --no-git --username bbaugher --key ~/.chef/bbaugher.pem"
+  run_command "bundle exec stove --no-git --username bbaugher --key ~/.chef/bbaugher.pem"
   puts "Shared cookbook!"
  
   # Tag the release
@@ -186,11 +223,4 @@ def run_command command
   unless $?.success?
     raise "Command : [#{command}] failed.\nOutput : \n#{output}"
   end
-end
-
-begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
-rescue LoadError
-  puts ">>>>> Kitchen gem not loaded, omitting tasks" unless ENV['CI']
 end

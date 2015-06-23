@@ -1,14 +1,12 @@
 # coding: UTF-8
 
 require 'serverspec'
+
+# Required by serverspec
+set :backend, :exec
+
+# Something we need in order to get 'describe server' to work
+set :path, '/sbin:/usr/local/sbin:$PATH'
+
+# Used by tests
 require 'pathname'
-
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
-RSpec.configure do |c|
-  c.before :all do
-    c.os = backend(Serverspec::Commands::Base).check_os
-    c.path = '/sbin:/usr/sbin'
-  end
-end

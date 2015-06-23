@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-
 group :testing do
-  gem 'test-kitchen'
-  gem 'kitchen-vagrant'
-  gem 'chefspec'
+  gem 'berkshelf', '~> 3.0'
+  gem 'test-kitchen', '~> 1.2.1'
+  gem 'kitchen-vagrant', '~> 0.15.0'
+  gem 'chefspec', '~> 4.1'
   gem 'foodcritic'
 
   # Needed to run unit tests because of library

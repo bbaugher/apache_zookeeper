@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'apache_zookeeper::default' do
 
   let(:chef_run) do
-    ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['servers'] = ['chefspec']
+    ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['servers'] = ['fauxhai.local']
     end
   end
 
@@ -19,13 +19,12 @@ describe 'apache_zookeeper::default' do
       content: '1'
     )
 
-    expect(chef_run.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'chefspec:2888:3888')
-
+    expect(chef_run.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'fauxhai.local:2888:3888')
   end
 
   it 'has servers attribute and sets follower/election ports' do
-    chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['servers'] = ['chefspec']
+    chef = ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['servers'] = ['fauxhai.local']
       node.set['zookeeper']['follower_port'] = 1234
       node.set['zookeeper']['election_port'] = 4321
     end
@@ -39,13 +38,13 @@ describe 'apache_zookeeper::default' do
       content: '1'
     )
 
-    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'chefspec:1234:4321')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'fauxhai.local:1234:4321')
 
   end
 
   it 'includes many servers' do
-    chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['servers'] = ['other1', 'other2', 'chefspec']
+    chef = ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['servers'] = ['other1', 'other2', 'fauxhai.local']
     end
 
     chef.converge(described_recipe)
@@ -59,13 +58,13 @@ describe 'apache_zookeeper::default' do
 
     expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'other1:2888:3888')
     expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'other2:2888:3888')
-    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'chefspec:2888:3888')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'fauxhai.local:2888:3888')
 
   end
 
   it 'includes many servers and is not last' do
-    chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['servers'] = ['other1', 'chefspec', 'other2']
+    chef = ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['servers'] = ['other1', 'fauxhai.local', 'other2']
     end
 
     chef.converge(described_recipe)
@@ -78,14 +77,14 @@ describe 'apache_zookeeper::default' do
     )
 
     expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'other1:2888:3888')
-    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'chefspec:2888:3888')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'fauxhai.local:2888:3888')
     expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'other2:2888:3888')
 
   end
 
   it 'includes many servers with leader and quorum ports' do
-    chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['servers'] = ['other1:2881:3881', 'other2:2882:3882', 'chefspec:2883:3883']
+    chef = ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['servers'] = ['other1:2881:3881', 'other2:2882:3882', 'fauxhai.local:2883:3883']
     end
 
     chef.converge(described_recipe)
@@ -99,12 +98,12 @@ describe 'apache_zookeeper::default' do
 
     expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'other1:2881:3881')
     expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.2" => 'other2:2882:3882')
-    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'chefspec:2883:3883')
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.3" => 'fauxhai.local:2883:3883')
 
   end
 
   it 'does not include servers or zoo.cfg attribute' do
-    chef = ChefSpec::Runner.new do |node|
+    chef = ChefSpec::SoloRunner.new do |node|
     end
 
     chef.converge(described_recipe)
@@ -119,8 +118,8 @@ describe 'apache_zookeeper::default' do
   end
 
   it 'has zoo.cfg server.X config' do
-    chef = ChefSpec::Runner.new do |node|
-      node.set['zookeeper']['zoo.cfg']['server.1'] = 'chefspec'
+    chef = ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['zoo.cfg']['server.1'] = 'fauxhai.local'
     end
 
     chef.converge(described_recipe)
@@ -135,10 +134,10 @@ describe 'apache_zookeeper::default' do
   end
 
   it 'has many zoo.cfg server.X config' do
-    chef = ChefSpec::Runner.new do |node|
+    chef = ChefSpec::SoloRunner.new do |node|
       node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1:2888:3888'
       node.set['zookeeper']['zoo.cfg']['server.2'] = 'other2:2888:3888'
-      node.set['zookeeper']['zoo.cfg']['server.3'] = 'chefspec:2888:3888'
+      node.set['zookeeper']['zoo.cfg']['server.3'] = 'fauxhai.local:2888:3888'
     end
 
     chef.converge(described_recipe)
@@ -153,9 +152,9 @@ describe 'apache_zookeeper::default' do
   end
 
   it 'has many zoo.cfg server.X config and is not last' do
-    chef = ChefSpec::Runner.new do |node|
+    chef = ChefSpec::SoloRunner.new do |node|
       node.set['zookeeper']['zoo.cfg']['server.1'] = 'other1:2888:3888'
-      node.set['zookeeper']['zoo.cfg']['server.2'] = 'chefspec:2888:3888'
+      node.set['zookeeper']['zoo.cfg']['server.2'] = 'fauxhai.local:2888:3888'
       node.set['zookeeper']['zoo.cfg']['server.3'] = 'other2:2888:3888'
     end
 
@@ -171,7 +170,7 @@ describe 'apache_zookeeper::default' do
   end
 
   it 'has servers attribute but does not include server' do
-    chef = ChefSpec::Runner.new do |node|
+    chef = ChefSpec::SoloRunner.new do |node|
       node.set['zookeeper']['servers'] = ['otherServer']
     end
 
@@ -181,7 +180,7 @@ describe 'apache_zookeeper::default' do
   end
 
   it 'has zoo.cfg server.X but does not include server' do
-    chef = ChefSpec::Runner.new do |node|
+    chef = ChefSpec::SoloRunner.new do |node|
       node.set['zookeeper']['zoo.cfg']['server.1'] = 'otherServer'
     end
 

@@ -1,3 +1,4 @@
+# Generic
 *~
 *#
 .#*
@@ -12,9 +13,10 @@ pkg/
 Berksfile.lock
 
 # Bundler
-Gemfile.lock
 bin/*
 .bundle/*
+vendor/
 
+# Test-Kitchen
 .kitchen/
 .kitchen.local.yml
