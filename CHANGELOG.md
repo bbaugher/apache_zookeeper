@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+[0.5.0 - 06-23-2015](https://github.com/bbaugher/apache_zookeeper/issues?milestone=12&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-24](https://github.com/bbaugher/apache_zookeeper/issues/24) : Fix up tests
+  * [Enhancement] [Issue-23](https://github.com/bbaugher/apache_zookeeper/issues/23) : Recipe downgrades java to 1.6
+  * [Enhancement] [Issue-20](https://github.com/bbaugher/apache_zookeeper/issues/20) : Add test zkcli works
+  * [Enhancement] [Issue-13](https://github.com/bbaugher/apache_zookeeper/issues/13) : Use ulimit cookbook
+
 [0.4.0 - 10-20-2014](https://github.com/bbaugher/apache_zookeeper/issues?milestone=11&state=closed)
 ---------------------------------------------------------------------------------------------------
 
