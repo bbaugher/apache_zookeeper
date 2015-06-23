@@ -1,10 +1,12 @@
 # coding: UTF-8
 
+default["zookeeper"]["install_java"] = true
+
 default["zookeeper"]["user"] = "zookeeper"
 default["zookeeper"]["group"] = "zookeeper"
 
-default["ulimit"]["users"][node["zookeeper"]["user"]]["filehandle_limit"] = 32768
-default["ulimit"]["users"][node["zookeeper"]["user"]]["process_limit"] = 1024
+default["ulimit"]["users"][node["zookeeper"]["user"]]["filehandle_limit"] = 32768 # ~FC047
+default["ulimit"]["users"][node["zookeeper"]["user"]]["process_limit"] = 1024 # ~FC047
 
 default["zookeeper"]["env_vars"]["ZOO_LOG4J_PROP"] = "INFO,ROLLINGFILE"
 

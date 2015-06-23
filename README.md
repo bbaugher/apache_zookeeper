@@ -81,6 +81,7 @@ runtime settings. Here are some,
 Attributes
 ----------
 
+ * `node["zookeeper"]["install_java"]` : If you want to use the `java` cookbook to install java (default=`true`)
  * `node["zookeeper"]["user"]` : The user that owns the Zookeeper installation (default="zookeeper")
  * `node["zookeeper"]["group"]` : The group that owns the Zookeeper installation (default="zookeeper")
  * `node["zookeeper"]["env_vars"]` : The environment variables set for the zookeeper user (default={"ZOO_LOG_DIR" => `node["zookeeper"]["log_directory"]`, "ZOO_LOG4J_PROP" => "'INFO, CONSOLE, ROLLINGFILE'"})

@@ -16,7 +16,7 @@ end
 setup_helper
 
 # Install java
-include_recipe "java"
+include_recipe "java" if node["zookeeper"]["install_java"]
 
 # Create zookeeper user/group
 group node["zookeeper"]["group"] do

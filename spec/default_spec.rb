@@ -20,6 +20,27 @@ describe 'apache_zookeeper::default' do
     )
 
     expect(chef_run.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'fauxhai.local:2888:3888')
+    expect(chef_run).to include_recipe('java')
+  end
+
+  it 'will not install java if install_java set to false' do
+    chef = ChefSpec::SoloRunner.new do |node|
+      node.set['zookeeper']['servers'] = ['fauxhai.local']
+      node.set['zookeeper']['install_java'] = false
+    end
+
+    chef.converge(described_recipe)
+    expect(chef).to start_service('zookeeper')
+
+    expect(chef).to create_file('/var/zookeeper/myid').with(
+      user:   'zookeeper',
+      group:  'zookeeper',
+      backup: false,
+      content: '1'
+    )
+
+    expect(chef.node["zookeeper"]["zoo.cfg"]).to include("server.1" => 'fauxhai.local:2888:3888')
+    expect(chef).not_to include_recipe('java')
   end
 
   it 'has servers attribute and sets follower/election ports' do
