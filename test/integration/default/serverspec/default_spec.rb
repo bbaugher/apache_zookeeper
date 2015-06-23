@@ -55,7 +55,7 @@ describe 'zookeeper' do
   end
 
   it 'should have zkCli command available' do
-    output = `echo -ne 'quit' | zkCli`
+    output = `echo "\nquit" | zkCli`
     expect(output).to contain('Connecting to localhost:2181')
     expect($?.success?).to eq(true)
   end
