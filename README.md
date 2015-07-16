@@ -88,7 +88,7 @@ Attributes
  * `node["zookeeper"]["servers"]` : The array of fqdn/hostnames/ips for the zookeeper servers in the cluster (default=[])
  * `node["zookeeper"]["follower_port"]` : The port used by zookeeper followers (default=2888)
  * `node["zookeeper"]["election_port"]` : The port used for zookeeper elections (default=3888)
- * `node["zookeeper"]["version"]` : The version of the Serf agent to install (default="3.4.5")
+ * `node["zookeeper"]["version"]` : The version of Zookeeper to install (default="3.4.5")
  * `node["zookeeper"]["mirror"]` : The URL to the mirror that hosts the zookeeper binary (default=`http://archive.apache.org/dist/zookeeper`)
  * `node["zookeeper"]["binary_url"]` : The full binary url of Zookeeper. If you override this value make sure to provide a valid and up to date value for `node["zookeeper"]["version"]` (default=`File.join node["zookeeper"]["mirror"], "zookeeper-#{node["zookeeper"]["version"]}", "zookeeper-#{node["zookeeper"]["version"]}.tar.gz"`)
  * `node["zookeeper"]["base_directory"]` : The base directory Zookeeper should be installed into (default="/opt/zookeeper")
