@@ -29,7 +29,7 @@ user node["zookeeper"]["user"] do
   shell "/bin/false"
   system true
   home ["zookeeper"]["base_directory"]
-  manage_home false
+  supports :manage_home => false
 end
 
 include_recipe "ulimit"
