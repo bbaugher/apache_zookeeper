@@ -28,10 +28,10 @@ user node["zookeeper"]["user"] do
   gid node["zookeeper"]["group"]
   shell "/bin/false"
   system true
-  home ["zookeeper"]["base_directory"]
+  home node["zookeeper"]["base_directory"]
 end
 
-#include_recipe "ulimit"
+include_recipe "ulimit"
 
 # Download binary zip file
 remote_file zookeeper_tar_path do
