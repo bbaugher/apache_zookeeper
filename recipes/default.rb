@@ -24,23 +24,14 @@ group node["zookeeper"]["group"] do
 end
 
 user node["zookeeper"]["user"] do
-  comment "Zookeeper user"
+  comment "Zookeeper service account"
   gid node["zookeeper"]["group"]
-  shell "/bin/bash"
-  home "/home/#{node["zookeeper"]["user"]}"
-  supports :manage_home => true
+  shell "/bin/false"
+  system true
+  home node["zookeeper"]["base_directory"]
 end
 
 include_recipe "ulimit"
-
-# Configure zookeeper user's bash profile
-template "/home/#{node["zookeeper"]["user"]}/.bash_profile" do
-  source  "bash_profile.erb"
-  owner node["zookeeper"]["user"]
-  group node["zookeeper"]["group"]
-  mode  00755
-  notifies :restart, "service[zookeeper]"
-end
 
 # Download binary zip file
 remote_file zookeeper_tar_path do
