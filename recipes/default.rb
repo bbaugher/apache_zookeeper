@@ -133,6 +133,6 @@ execute "chown -R #{node["zookeeper"]["user"]}:#{node["zookeeper"]["group"]} #{z
 
 # Start zookeeper service
 service "zookeeper" do
-  supports :status => true, :restart => true
+  supports :status => true, :restart => false
   action [ :enable, :start ]
 end
