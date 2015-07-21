@@ -33,6 +33,9 @@ end
 
 include_recipe "ulimit"
 
+# Needed by init script
+package "daemon" if node['platform_family'] == 'debian'
+
 # Download binary zip file
 remote_file zookeeper_tar_path do
   action :create_if_missing
