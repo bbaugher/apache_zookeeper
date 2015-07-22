@@ -26,7 +26,8 @@ describe 'zookeeper' do
     # Ensure we reload ruby's usernames/groups
     Etc.endgrent
     Etc.endpwent
-    Dir["/opt/zookeeper/current/**/*"].each do |filePath|
+    Dir["/opt/zookeeper/current/**/*"].reject{ 
+        |f| f['/opt/zookeeper/current/conf']}.each do |filePath|
       expect(Etc.getpwuid(File.stat(filePath).uid).name).to eq("zookeeper")
       expect(Etc.getgrgid(File.stat(filePath).gid).name).to eq("zookeeper")
     end
