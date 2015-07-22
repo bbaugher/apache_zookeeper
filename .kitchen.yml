@@ -23,7 +23,8 @@ suites:
     attributes:
       java:
         jdk_version: "7"
-      zookeeper:
+      apache_zookeeper:
+        install_java: true
         zoo.cfg:
           bogus.for.cfg: value1
         log4j.properties:

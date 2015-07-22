@@ -36,7 +36,7 @@ remote_file download_path do
 end
 
 # Okay, now we can install java
-include_recipe "java" if node["zookeeper"]["install_java"]
+include_recipe "java" if node['apache_zookeeper']['install_java']
 
 # Create user/group accounts
 group node['apache_zookeeper']['group'] 
