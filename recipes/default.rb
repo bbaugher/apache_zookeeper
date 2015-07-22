@@ -122,18 +122,6 @@ template "/etc/init.d/zookeeper" do
   backup false
 end
 
-# Setup zookeeper's zkCli command
-template "/usr/bin/zkCli" do
-  source  "zkCli.erb"
-  group node["zookeeper"]["group"]
-  owner node["zookeeper"]["user"]
-  mode 00755
-  backup false
-end
-
-# Ensure everything is owned by zookeeper user/group
-execute "chown -R #{node["zookeeper"]["user"]}:#{node["zookeeper"]["group"]} #{zookeeper_base}"
-
 # Start zookeeper service
 service "zookeeper" do
   supports :status => true, :restart => false
