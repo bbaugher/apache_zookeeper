@@ -37,7 +37,7 @@ template 'log4j properties' do
 end
 
 template 'zookeeper config' do
-  path ::File.join(node['apache_zookeeper']['config_dir'], 'zookeeper.properties')
+  path ::File.join(node['apache_zookeeper']['config_dir'], 'zoo.cfg')
   group node['apache_zookeeper']['group']
   owner 'root'
   mode 00644
@@ -45,6 +45,8 @@ template 'zookeeper config' do
   source 'zoo.cfg.erb'
   #notifies :restart, 'service[zookeeper]'
 end
+
+setup_helper 
 
 file 'zookeeper id' do
   path ::File.join(node['apache_zookeeper']['data_dir'], 'myid')

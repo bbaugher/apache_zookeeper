@@ -21,6 +21,7 @@ suites:
       # requires an apt-get update in order to successfully run
       - recipe[apache_zookeeper::install]
       - recipe[apache_zookeeper::configure]
+      - recipe[apache_zookeeper::service]
     attributes:
       java:
         jdk_version: "7"

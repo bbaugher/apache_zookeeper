@@ -18,7 +18,7 @@ default['apache_zookeeper']['election_port'] = 3888
 
 
 default['apache_zookeeper']['zoo.cfg']['clientPort'] = 2181
-default['apache_zookeeper']['zoo.cfg']['dataDir'] = '/var/zookeeper'
+default['apache_zookeeper']['zoo.cfg']['dataDir'] = '/var/opt/zookeeper/data'
 default['apache_zookeeper']['zoo.cfg']['tickTime'] = 2000
 default['apache_zookeeper']['zoo.cfg']['autopurge.purgeInterval'] = 24
 default['apache_zookeeper']['zoo.cfg']['initLimit'] = 10
