@@ -16,4 +16,4 @@ end
 #  it { should be_owned_by 'zookeeper' }
 #  it { should be_grouped_into 'zookeeper' }
 #end
-
+#
