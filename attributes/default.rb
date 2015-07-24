@@ -4,21 +4,44 @@
 #
 # Apache Zookeeper global attributes
 
+
+
+#################  Installation attributes ###########################
+default["apache_zookeeper"]["install_java"] = true
+
+default["apache_zookeeper"]["install_dir"] = "/opt/zookeeper"
+default["apache_zookeeper"]["version"] = "3.4.6"
+default["apache_zookeeper"]["mirror"] = "http://archive.apache.org/dist/zookeeper"
+default["apache_zookeeper"]["dist"] = "http://www.us.apache.org"
+
+# User/group creation and limits
 default['apache_zookeeper']['user'] = 'zookeeper'
 default['apache_zookeeper']['group'] = 'zookeeper'
-
 default['ulimit']['users'][node['apache_zookeeper']['user']]['filehandle_limit'] = 32768 # ~FC047
 default['ulimit']['users'][node['apache_zookeeper']['user']]['process_limit'] = 1024 # ~FC047
 
-default['apache_zookeeper']['env_vars']['ZOO_LOG4J_PROP'] = 'INFO,ROLLINGFILE'
+################ Configuration Attributes #############################
+base_dir = ::File.join(node['apache_zookeeper']['install_dir'], 'current')
+default['apache_zookeeper']['config_dir'] = base_dir + '/conf'
+default['apache_zookeeper']['bin_dir'] =    base_dir + '/bin'
+default['apache_zookeeper']['data_dir'] =   base_dir + '/data'
+default['apache_zookeeper']['log_dir'] =    base_dir + '/log'
 
+# This are used to configure a cluster
 default['apache_zookeeper']['servers'] = []
 default['apache_zookeeper']['follower_port'] = 2888
 default['apache_zookeeper']['election_port'] = 3888
 
+############## Service Attributes #####################################
+default['apache_zookeeper']['init_style'] = 'init'
 
+
+################# Template attributes ################################
+default['apache_zookeeper']['env_vars']['ZOO_LOG4J_PROP'] = 'INFO,ROLLINGFILE'
+
+# Zookeeper configuration options
 default['apache_zookeeper']['zoo.cfg']['clientPort'] = 2181
-default['apache_zookeeper']['zoo.cfg']['dataDir'] = '/var/opt/zookeeper/data'
+default['apache_zookeeper']['zoo.cfg']['dataDir'] = node['apache_zookeeper']['data_dir']
 default['apache_zookeeper']['zoo.cfg']['tickTime'] = 2000
 default['apache_zookeeper']['zoo.cfg']['autopurge.purgeInterval'] = 24
 default['apache_zookeeper']['zoo.cfg']['initLimit'] = 10
