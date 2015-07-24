@@ -22,10 +22,13 @@ default['ulimit']['users'][node['apache_zookeeper']['user']]['process_limit'] = 
 
 ################ Configuration Attributes #############################
 base_dir = ::File.join(node['apache_zookeeper']['install_dir'], 'current')
+default['apache_zookeeper']['localstatedir'] = '/var/opt/zookeeper'
+localstate_dir = node['apache_zookeeper']['localstatedir']
+
 default['apache_zookeeper']['config_dir'] = base_dir + '/conf'
 default['apache_zookeeper']['bin_dir'] =    base_dir + '/bin'
-default['apache_zookeeper']['data_dir'] =   base_dir + '/data'
-default['apache_zookeeper']['log_dir'] =    base_dir + '/log'
+default['apache_zookeeper']['data_dir'] =   localstate_dir + '/data'
+default['apache_zookeeper']['log_dir'] =    localstate_dir + '/log'
 
 # This are used to configure a cluster
 default['apache_zookeeper']['servers'] = []
@@ -38,6 +41,7 @@ default['apache_zookeeper']['init_style'] = 'init'
 
 ################# Template attributes ################################
 default['apache_zookeeper']['env_vars']['ZOO_LOG4J_PROP'] = 'INFO,ROLLINGFILE'
+default['apache_zookeeper']['env_vars']['ZOO_LOG_DIR'] = node['apache_zookeeper']['log_dir']
 
 # Zookeeper configuration options
 default['apache_zookeeper']['zoo.cfg']['clientPort'] = 2181
@@ -50,7 +54,7 @@ default['apache_zookeeper']['zoo.cfg']['syncLimit'] = 5
 # Settings from default zookeeper installation
 default['apache_zookeeper']['log4j.properties']['zookeeper.root.logger'] = 'CONSOLE,ROLLINGFILE'
 default['apache_zookeeper']['log4j.properties']['zookeeper.console.threshold'] = 'INFO'
-default['apache_zookeeper']['log4j.properties']['zookeeper.log.dir'] = '.'
+default['apache_zookeeper']['log4j.properties']['zookeeper.log.dir'] = node['apache_zookeeper']['log_dir']
 default['apache_zookeeper']['log4j.properties']['zookeeper.log.file'] = 'zookeeper.log'
 default['apache_zookeeper']['log4j.properties']['zookeeper.log.threshold'] = 'INFO'
 default['apache_zookeeper']['log4j.properties']['zookeeper.tracelog.file'] = 'zookeeper_trace.log'

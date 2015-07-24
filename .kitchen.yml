@@ -15,33 +15,14 @@ platforms:
   - name: centos-7.1
 
 suites:
-  - name: rhel_init
+  - name: default
     run_list:
       # We only include apt because of an issue installing java where ubuntu
       # requires an apt-get update in order to successfully run
-      - recipe[apache_zookeeper::install]
-      - recipe[apache_zookeeper::configure]
-      - recipe[apache_zookeeper::service]
-    excludes:
-      - ubuntu-12.04
-    attributes:
-      java:
-        jdk_version: "7"
-      apache_zookeeper:
-        install_java: true
-        zoo.cfg:
-          bogus.for.cfg: value1
-        log4j.properties:
-          bogus.for.log4j: value2
-
-  - name: debian_init
-    run_list:
       - recipe[apt]
       - recipe[apache_zookeeper::install]
       - recipe[apache_zookeeper::configure]
       - recipe[apache_zookeeper::service]
-    excludes:
-      - centos-7.1
     attributes:
       java:
         jdk_version: "7"

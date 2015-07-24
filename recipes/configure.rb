@@ -23,6 +23,7 @@ end
   directory dir do
     recursive true
     owner node['apache_zookeeper']['user']
+    group node['apache_zookeeper']['group']
   end
 end
 
