@@ -33,7 +33,7 @@ template 'log4j properties' do
   mode  00644
   backup false
   source 'log4j.properties.erb'
-  #notifies :restart, 'service[zookeeper]'
+  notifies :run, 'ruby_block[restart_zookeeper_svc]'
 end
 
 template 'zookeeper config' do
@@ -43,18 +43,30 @@ template 'zookeeper config' do
   mode 00644
   backup false
   source 'zoo.cfg.erb'
-  #notifies :restart, 'service[zookeeper]'
+  notifies :run, 'ruby_block[restart_zookeeper_svc]'
 end
 
 setup_helper 
+myid = zookeeper_myid
 
 file 'zookeeper id' do
   path ::File.join(node['apache_zookeeper']['data_dir'], 'myid')
   group node['apache_zookeeper']['group']
   owner 'root'
-  content "#{ zookeeper_myid }"
+  content "#{ myid }"
   mode 00644
   backup false
+  notifies :run, 'ruby_block[restart_zookeeper_svc]'
 end
 
-
+ruby_block 'restart_zookeeper_svc' do
+  block do
+    begin
+      r = resources(service: 'zookeeper')
+      r.action(:restart)
+    rescue Chef::Exceptions::ResourceNotFound
+      # Do nothing
+    end
+  end
+  action :nothing
+end

@@ -15,21 +15,11 @@ verify_url    = ::File.join(node['apache_zookeeper']['dist'],
                             "dist/zookeeper",
                             "#{version_tag}/#{version_tag}.tar.gz.sha1")
 
-remote_file "#{download_path}.sha1" do
-  action :create_if_missing 
-  source verify_url
-  backup false
-end
 
-# TODO: Use PGP signature instead of sha1 for verification
 remote_file download_path do
   action :create_if_missing
   source download_url
   backup false
-  #verify { 
-  #  `sha1sum -c #{download_path}.sha1`
-  #  $? == 0
-  #}
   not_if { ::File.exist?(
     ::File.join(node['apache_zookeeper']['install_dir'], version_tag)
   ) }
