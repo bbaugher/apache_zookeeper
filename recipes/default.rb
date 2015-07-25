@@ -3,6 +3,6 @@
 # Recipe:: default
 #
 
-include_recipe['apache_zookeeper::install']
-include_recipe['apache_zookeeper::configure']
-include_recipe['apache_zookeeper::service']
+include_recipe['install']
+include_recipe['configure']
+include_recipe['service']
