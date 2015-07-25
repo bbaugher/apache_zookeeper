@@ -12,7 +12,7 @@ template '/etc/init.d/zookeeper' do
   source "#{dist_dir}/init.d/zookeeper.erb"
   mode 0755
   variables :zkserver_bin => "#{node['apache_zookeeper']['bin_dir']}/zkServer.sh",
-    :zkuser => "#{node['apache_zookeeper']['user']}"
+    :zkuser => node['apache_zookeeper']['user']
   notifies :restart, 'service[zookeeper]', :delayed
 end
 

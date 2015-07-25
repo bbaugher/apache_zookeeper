@@ -54,7 +54,7 @@ file 'zookeeper id' do
   path ::File.join(node['apache_zookeeper']['data_dir'], 'myid')
   group node['apache_zookeeper']['group']
   owner 'root'
-  content "#{ myid }"
+  content  myid
   mode 00644
   backup false
   notifies :run, 'ruby_block[restart_zookeeper_svc]'

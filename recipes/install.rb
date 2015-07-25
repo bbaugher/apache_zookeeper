@@ -60,7 +60,7 @@ end
 execute "set zookeeper install owner" do
   command "chown -R "\
     "#{node['apache_zookeeper']['user']}:#{node['apache_zookeeper']['group']} "\
-    "#{::File.join(node['apache_zookeeper']['install_dir'], version_tag)}"
+    " #{::File.join(node['apache_zookeeper']['install_dir'], version_tag)}"
 end
 
 link ::File.join(node['apache_zookeeper']['install_dir'], "current") do
