@@ -53,22 +53,6 @@ module ZookeeperHelper
 
   end
 
-#  def zookeeper_base *files
-#    File.join node['apache_zookeeper']["base_directory"], *files
-#  end
-#
-#  def zookeeper_bin *files
-#    zookeeper_base "bin", *files
-#  end
-#
-#  def zookeeper_conf *files
-#    zookeeper_base "conf", *files
-#  end
-#
-#  def zookeeper_tar_path
-#    File.join Chef::Config[:file_cache_path], "zookeeper-#{node['apache_zookeeper']["version"]}.tar.gz"
-#  end
-#
   def zookeeper_version
     build_xml_path = File.join node['apache_zookeeper']["base_directory"], "build.xml"
 

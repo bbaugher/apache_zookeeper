@@ -26,7 +26,7 @@ start() {
     [ -x $exec ] || exit 5
     [ -f $config ] || exit 6
     echo -n $"Starting $prog: "
-    sudo -u $service_user bash -c "cd $HOME; $exec start"
+    su -u $service_user $exec start
     retval=$?
     echo
     return $retval

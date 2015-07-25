@@ -15,9 +15,6 @@
 # Description: A high-performance coordination service for distributed applications.
 ### END INIT INFO
 
-# Source function library
-. /etc/init.d/functions
-
 exec="<%= @zkserver_bin %>"
 config=${CONFIG:-/opt/zookeeper/current/conf/zoo.cfg}
 service_user="<%= @zkuser %>"
@@ -32,7 +29,7 @@ start() {
     [ -x $exec ] || exit 5
     [ -f $config ] || exit 6
     echo -n $"Starting $prog: "
-    exec runuser --login --shell=/bin/sh $service_user $exec start
+    runuser --shell=/bin/sh $service_user $exec start
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile

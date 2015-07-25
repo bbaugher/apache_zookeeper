@@ -3,5 +3,5 @@
 CONFIG=<%= node['apache_zookeeper']['config_dir'] %>/zoo.cfg
 
 <% node['apache_zookeeper']['env_vars'].each do |key, value| -%>
-<%= key %>=<%= value %>
+export <%= key %>=<%= value %>
 <%- end -%>
