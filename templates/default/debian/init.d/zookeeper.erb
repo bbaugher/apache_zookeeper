@@ -26,7 +26,7 @@ start() {
     [ -x $exec ] || exit 5
     [ -f $config ] || exit 6
     echo -n $"Starting $prog: "
-    su --shell /bin/bash $service_user -- $exec start
+    su --shell /bin/bash $service_user -c "$exec start"
     retval=$?
     echo
     return $retval
@@ -34,7 +34,7 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
-    exec $exec stop
+    su --shell /bin/bash $service_user -c "$exec stop"
     retval=$?
     echo
     return $retval
@@ -45,7 +45,7 @@ status() {
 }
 
 restart () {
-    exec $exec restart
+    su --shell /bin/bash $service_user -c "$exec restart"
 }
 
 force_reload() {
