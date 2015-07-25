@@ -16,7 +16,7 @@ template '/etc/init.d/zookeeper' do
   notifies :restart, 'service[zookeeper]', :delayed
 end
 
-template "/etc/#{conf_dir}/zookeepeer" do
+template "/etc/#{conf_dir}/zookeeper" do
   source "#{dist_dir}/#{conf_dir}/zookeeper.erb"
   mode 0644
   notifies :restart, 'service[zookeeper]', :delayed
