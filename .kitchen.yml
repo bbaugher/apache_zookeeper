@@ -12,7 +12,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: centos-7.1
 
 suites:
   - name: default
@@ -20,11 +20,14 @@ suites:
       # We only include apt because of an issue installing java where ubuntu
       # requires an apt-get update in order to successfully run
       - recipe[apt]
-      - recipe[apache_zookeeper]
+      - recipe[apache_zookeeper::install]
+      - recipe[apache_zookeeper::configure]
+      - recipe[apache_zookeeper::service]
     attributes:
       java:
         jdk_version: "7"
-      zookeeper:
+      apache_zookeeper:
+        install_java: true
         zoo.cfg:
           bogus.for.cfg: value1
         log4j.properties:

@@ -1,2 +1,2 @@
 #!/bin/bash
-<%= node["zookeeper"]["base_directory"] %>/bin/zkCli.sh $@
+<%= "#{::File.join(node['apache_zookeeper']['install_dir'], 'current/bin/zkCli.sh')} " %> $@
