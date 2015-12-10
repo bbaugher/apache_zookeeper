@@ -12,6 +12,6 @@ PATH=$PATH:$HOME/bin
 
 export PATH
 
-<% node["zookeeper"]["env_vars"].each do |key, value| -%>
+<% node["apache_zookeeper"]["env_vars"].each do |key, value| -%>
 export <%= key %>=<%= value %>
 <%- end -%>
