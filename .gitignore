@@ -12,6 +12,8 @@ pkg/
 /cookbooks
 Berksfile.lock
 
+.ruby-version
+
 # Bundler
 bin/*
 .bundle/*
