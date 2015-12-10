@@ -16,9 +16,9 @@
 [ -f /etc/init.d/functions ] && . /etc/init.d/functions
 
 # TODO: Gotta do this more cleanly
-<% node["zookeeper"]["env_vars"].each do |key, value| -%>
+<% node["apache_zookeeper"]["env_vars"].each do |key, value| -%>
 export <%= key %>=<%= value %>
 <%- end -%>
 
 # FIXME: Overall this init script needs some love
-daemon --user=<%= node["zookeeper"]["user"] %> <%= node["zookeeper"]["base_directory"] %>/bin/zkServer.sh $1
+daemon --user=<%= node["apache_zookeeper"]["user"] %> <%= node["apache_zookeeper"]["base_directory"] %>/bin/zkServer.sh $1
