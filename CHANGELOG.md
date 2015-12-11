@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+[1.0.0 - 12-11-2015](https://github.com/bbaugher/apache_zookeeper/issues?milestone=13&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Feature] [Issue-38](https://github.com/bbaugher/apache_zookeeper/issues/38) : Provide recipes for install/configure/service
+  * [Feature] [Issue-37](https://github.com/bbaugher/apache_zookeeper/issues/37) : Support different init styles
+  * [Enhancement] [Issue-36](https://github.com/bbaugher/apache_zookeeper/issues/36) : Remove xml-simple
+  * [Bug] [Issue-27](https://github.com/bbaugher/apache_zookeeper/issues/27) : Package `daemon` is missing
+  * [Enhancement] [Issue-25](https://github.com/bbaugher/apache_zookeeper/issues/25) : zookeeper as system user
+
 [0.5.0 - 06-23-2015](https://github.com/bbaugher/apache_zookeeper/issues?milestone=12&state=closed)
 ---------------------------------------------------------------------------------------------------
 
