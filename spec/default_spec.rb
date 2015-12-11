@@ -14,7 +14,7 @@ describe 'apache_zookeeper::default' do
     expect(chef_run).to start_service('zookeeper')
 
     expect(chef_run).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '1'
@@ -35,7 +35,7 @@ describe 'apache_zookeeper::default' do
     expect(chef).to start_service('zookeeper')
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '1'
@@ -56,8 +56,8 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'apache_zookeeper',
-      group:  'apache_zookeeper',
+      user:   'root',
+      group:  'zookeeper',
       backup: false,
       content: '1'
     )
@@ -75,7 +75,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '3'
@@ -96,7 +96,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '2'
@@ -117,7 +117,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '3'
@@ -137,7 +137,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: nil
@@ -154,7 +154,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '1'
@@ -173,7 +173,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '3'
@@ -192,7 +192,7 @@ describe 'apache_zookeeper::default' do
     chef.converge(described_recipe)
 
     expect(chef).to create_file('/var/zookeeper/myid').with(
-      user:   'zookeeper',
+      user:   'root',
       group:  'zookeeper',
       backup: false,
       content: '2'
