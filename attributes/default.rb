@@ -12,7 +12,6 @@ default["apache_zookeeper"]["install_java"] = true
 default["apache_zookeeper"]["install_dir"] = "/opt/zookeeper"
 default["apache_zookeeper"]["version"] = "3.4.6"
 default["apache_zookeeper"]["mirror"] = "http://archive.apache.org/dist/zookeeper"
-default["apache_zookeeper"]["dist"] = "http://www.us.apache.org"
 
 # User/group creation and limits
 default['apache_zookeeper']['user'] = 'zookeeper'
@@ -22,13 +21,13 @@ default['ulimit']['users'][node['apache_zookeeper']['user']]['process_limit'] = 
 
 ################ Configuration Attributes #############################
 base_dir = ::File.join(node['apache_zookeeper']['install_dir'], 'current')
-default['apache_zookeeper']['localstatedir'] = '/var/opt/zookeeper'
-localstate_dir = node['apache_zookeeper']['localstatedir']
+default['apache_zookeeper']['local_state_dir'] = '/var/opt/zookeeper'
+local_state_dir = node['apache_zookeeper']['local_state_dir']
 
 default['apache_zookeeper']['config_dir'] = base_dir + '/conf'
 default['apache_zookeeper']['bin_dir'] =    base_dir + '/bin'
-default['apache_zookeeper']['data_dir'] =   localstate_dir + '/data'
-default['apache_zookeeper']['log_dir'] =    localstate_dir + '/log'
+default['apache_zookeeper']['data_dir'] =   local_state_dir + '/data'
+default['apache_zookeeper']['log_dir'] =    local_state_dir + '/log'
 
 # This are used to configure a cluster
 default['apache_zookeeper']['servers'] = []

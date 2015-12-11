@@ -29,8 +29,8 @@ end
 
 template 'log4j properties' do
   path ::File.join(node['apache_zookeeper']['config_dir'], 'log4j.properties')
+  owner node['apache_zookeeper']['user']
   group node['apache_zookeeper']['group']
-  owner 'root'
   mode  00644
   backup false
   source 'log4j.properties.erb'
@@ -39,21 +39,21 @@ end
 
 template 'zookeeper config' do
   path ::File.join(node['apache_zookeeper']['config_dir'], 'zoo.cfg')
+  owner node['apache_zookeeper']['user']
   group node['apache_zookeeper']['group']
-  owner 'root'
   mode 00644
   backup false
   source 'zoo.cfg.erb'
   notifies :run, 'ruby_block[restart_zookeeper_svc]'
 end
 
-setup_helper 
+setup_helper
 myid = zookeeper_myid
 
 file 'zookeeper id' do
   path ::File.join(node['apache_zookeeper']['data_dir'], 'myid')
+  owner node['apache_zookeeper']['user']
   group node['apache_zookeeper']['group']
-  owner 'root'
   content  myid
   mode 00644
   backup false

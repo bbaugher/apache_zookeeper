@@ -7,10 +7,6 @@ module ZookeeperHelper
   # Initializes the helper class
   def setup_helper
 
-    # Install and require the xml-simple library
-    chef_gem "xml-simple"
-    require 'xmlsimple'
-
     # Define ZOO_LOG_DIR
     node.default['apache_zookeeper']["env_vars"]["ZOO_LOG_DIR"] = node['apache_zookeeper']['log_dir']
 
@@ -57,13 +53,12 @@ module ZookeeperHelper
     build_xml_path = File.join node['apache_zookeeper']["base_directory"], "build.xml"
 
     if File.exists? build_xml_path
-      xml = XmlSimple.xml_in(IO.read(build_xml_path))
+      require 'rexml/document'
+      doc = REXML::Document.new(IO.read(build_xml_path))
 
-      xml["property"].each do |property|
-        if property["name"] == "version"
-          return property["value"]
-        end
-      end
+      doc.get_elements('//property').select{|e|
+        e.attributes.has_key?('name') && e.attributes['name'] == 'version' && e.attributes['value'] != '${version}'
+      }.first.attributes['value']
     end
 
     "N/A"

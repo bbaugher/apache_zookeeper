@@ -2,6 +2,7 @@ Apache Zookeeper Cookbook
 =========================
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/apache_zookeeper.svg)](https://community.opscode.com/cookbooks/apache_zookeeper)
+[![Build Status](https://travis-ci.org/bbaugher/apache_zookeeper.svg?branch=master)](https://travis-ci.org/bbaugher/apache_zookeeper)
 
 Installs and configures [Apache Zookeeper](http://zookeeper.apache.org/).
 
@@ -44,7 +45,9 @@ What does the installation look like
 By default the installation will look like,
 
     zkCli | /usr/bin/zkCli  - The Zookeeper cli binary command
-    /opt/zookeeper/*        - All of Zookeeper's files (config, binaries, logs...)
+    /opt/zookeeper/current/*        - All of Zookeeper's files (config, binaries, logs...)
+    /var/opt/zookeeper/logs - Zookeeper log information
+    /var/opt/zookeeper/data - Zookeeper data
     /etc/init.d/zookeeper   - An init.d script to start/stop zookeeper. You can use service
     				        zookeeper [start|stop|restart|status] instead
 
@@ -78,20 +81,33 @@ runtime settings. Here are some,
  * `JMXDISABLE` : Disables jmx. Defaults to enabling JMX. To disable set to any value
  * `SERVER_JVMFLAGS` : JVM flags for the server process
 
+Recipes
+-------
+
+ * `default`: Installs, configures and runs zookeeper as a service
+ * `install`: Installs zookeeper
+ * `configure`: Configures zookeeper
+ * `service`: Runs zookeeper
+
 Attributes
 ----------
 
  * `node["apache_zookeeper"]["install_java"]` : If you want to use the `java` cookbook to install java (default=`true`)
  * `node["apache_zookeeper"]["user"]` : The user that owns the Zookeeper installation (default="zookeeper")
  * `node["apache_zookeeper"]["group"]` : The group that owns the Zookeeper installation (default="zookeeper")
- * `node["apache_zookeeper"]["env_vars"]` : The environment variables set for the zookeeper user (default={"ZOO_LOG_DIR" => `node["apache_zookeeper"]["log_directory"]`, "ZOO_LOG4J_PROP" => "'INFO, CONSOLE, ROLLINGFILE'"})
+ * `node["apache_zookeeper"]["env_vars"]` : The environment variables set for the zookeeper user (default={"ZOO_LOG_DIR" => `node["apache_zookeeper"]["log_dir"]`, "ZOO_LOG4J_PROP" => "'INFO, CONSOLE, ROLLINGFILE'"})
  * `node["apache_zookeeper"]["servers"]` : The array of fqdn/hostnames/ips for the zookeeper servers in the cluster (default=[])
  * `node["apache_zookeeper"]["follower_port"]` : The port used by zookeeper followers (default=2888)
  * `node["apache_zookeeper"]["election_port"]` : The port used for zookeeper elections (default=3888)
  * `node["apache_zookeeper"]["version"]` : The version of Zookeeper to install (default="3.4.5")
  * `node["apache_zookeeper"]["mirror"]` : The URL to the mirror that hosts the zookeeper binary (default=`http://archive.apache.org/dist/zookeeper`)
  * `node["apache_zookeeper"]["binary_url"]` : The full binary url of Zookeeper. If you override this value make sure to provide a valid and up to date value for `node["apache_zookeeper"]["version"]` (default=`File.join node["apache_zookeeper"]["mirror"], "zookeeper-#{node["apache_zookeeper"]["version"]}", "zookeeper-#{node["apache_zookeeper"]["version"]}.tar.gz"`)
- * `node["apache_zookeeper"]["base_directory"]` : The base directory Zookeeper should be installed into (default="/opt/zookeeper")
- * `node["apache_zookeeper"]["log_directory"]` : The log directory for Zookeeper (default=`"#{node["apache_zookeeper"]["base_directory"]}/logs"`)
+ * `node["apache_zookeeper"]["init_style"]` : The style of script to use for running the zookeeper service. Currently only supports `init`. (default = `init`)
+ * `node["apache_zookeeper"]["install_dir"]` : The base directory Zookeeper should be installed into (default="/opt/zookeeper")
+ * `node["apache_zookeeper"]["local_state_dir"]` : The base directory for all of Zookeepers local state (data, logs)
+ * `node["apache_zookeeper"]["data_dir"]` : The data directory for Zookeeper (default=`"#{node["apache_zookeeper"]["local_state_dir"]}/data"`)
+ * `node["apache_zookeeper"]["log_dir"]` : The log directory for Zookeeper (default=`"#{node["apache_zookeeper"]["local_state_dir"]}/logs"`)
+ * `node["apache_zookeeper"]["bin_dir"]` : The bind directory for Zookeeper (default=`"#{node["apache_zookeeper"]["install_dir"]}/current/bin"`)
+ * `node["apache_zookeeper"]["config_dir"]` : The config directory for Zookeeper (default=`"#{node["apache_zookeeper"]["install_dir"]}/current/config"`)
  * `node["apache_zookeeper"]["zoo.cfg"][*]` : The key/values set for the `zoo.cfg` config file (see attributes file for defaults)
  * `node["apache_zookeeper"]["log4j.properties"][*]` : The key/values set for the `log4j.properties` config file (see attributes file for defaults)

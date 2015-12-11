@@ -1,48 +1,23 @@
 # coding: UTF-8
 require 'octokit'
+require 'yaml'
+require 'stove/rake_task'
+require 'stove/cookbook'
+
+if ENV['GITHUB_API_TOKEN']
+  @octokit = Octokit::Client.new(:access_token => ENV['GITHUB_API_TOKEN'])
+else
+  @octokit = Octokit::Client.new
+end
+
+Stove::RakeTask.new
 
 VERSION_WITH_NAME_REGEX = /version\s*'\d+\.\d+\.\d+'/
 VERSION_REGEX = /\d+\.\d+\.\d+/
-
 REPO = "bbaugher/apache_zookeeper"
-
-task :install do
-  puts "Installing development gems ..."
-  exit 1 unless system("bundle install --path vendor/bundle")
-end
-
-task :unit_test do
-  puts "Running Unit Tests ..."
-  exit 1 unless system("bundle exec rspec")
-end
-
-task :integration_test do
-  puts "Running Integration Tests ..."
-  exit 1 unless system("bundle exec kitchen test")
-end
-
-task :lint_test do
-  puts "Running Lint Tests ..."
-  exit 1 unless system("bundle exec foodcritic . -f any")
-end
-
-task :test do
-  puts "Running All Tests"
-
-  %w{ unit_test lint_test integration_test}.each do |task|
-    Rake::Task[task].invoke
-  end
-
-end
 
 task :release do
   puts "Releasing the cookbook ..."
-
-  if ENV["SKIP_TESTS"]
-    puts "Skipping tests since SKIP_TESTS is set"
-  else
-    Rake::Task["test"].invoke
-  end
 
   version = cookbook_version
 
@@ -51,16 +26,13 @@ task :release do
   update_change_log version
   puts "Change log updated!"
 
-  # Share the cookbook
-  puts "Sharing cookbook ..."
-  run_command "stove --no-git --username bbaugher --key ~/.chef/bbaugher.pem"
-  puts "Shared cookbook!"
+  # Publish the cookbook
+  puts "Publishing the cookbook ..."
 
-  # Tag the release
-  puts "Tagging the #{version} release ..."
-  run_command "git tag -a #{version} -m 'Released #{version}'"
-  run_command "git push origin #{version}"
-  puts "Release tagged!"
+  # Run stove's rake task
+  Rake::Task['publish'].invoke
+
+  puts "Published cookbook!"
 
   # Bump version
   versions = version.split "."
@@ -73,20 +45,14 @@ task :release do
 
   new_version = versions.join "."
 
+  # Update the cookbook version
   puts "Updating version from #{version} to #{new_version} ..."
   update_cookbook_version new_version
   puts "Version updated!"
-
-  # Commit the updated VERSION file
-  puts "Commiting the new version ..."
-  run_command "git add metadata.rb"
-  run_command "git commit -m 'Released #{version} and bumped version to #{new_version}'"
-  run_command "git push origin HEAD"
-  puts "Version commited!"
 end
 
 task :build_change_log do
-  closed_milestones = Octokit.milestones REPO, {:state => "closed"}
+  closed_milestones = @octokit.milestones REPO, {:state => "closed"}
 
   version_to_milestone = Hash.new
   versions = Array.new
@@ -117,13 +83,11 @@ task :build_change_log do
 end
 
 def cookbook_version
-  # Read in the metadata file
-  metadata = IO.read(File.join(File.dirname(__FILE__), 'metadata.rb')).chomp
-  version_with_name = VERSION_WITH_NAME_REGEX.match(metadata)[0]
-  VERSION_REGEX.match(version_with_name)[0]
+  cookbook = Stove::Cookbook.new('.')
+  cookbook.version
 end
 
-def update_cookbook_version version
+def update_cookbook_version new_version
   # Read in the metadata file
   metadata = IO.read(File.join(File.dirname(__FILE__), 'metadata.rb')).chomp
   version_with_name = VERSION_WITH_NAME_REGEX.match(metadata)[0]
@@ -134,8 +98,12 @@ def update_cookbook_version version
 
   File.open("metadata.rb", 'w') { |file|
     file.write metadata[0, index_to_version_info + index_to_version]
-    file.write "'#{version}'\n"
+    file.write "'#{new_version}'\n"
   }
+
+  run_command "git add metadata.rb"
+  run_command "git commit -m 'Released #{cookbook_version} and bumped version to #{new_version}'"
+  run_command "git push origin HEAD"
 end
 
 def update_change_log version
@@ -179,7 +147,7 @@ def generate_milestone_markdown milestone
   strings.push "-" * title.length
   strings.push ""
 
-  issues = Octokit.issues REPO, {:milestone => milestone.number, :state => "closed"}
+  issues = @octokit.issues REPO, {:milestone => milestone.number, :state => "closed"}
 
   issues.each do |issue|
     strings.push "  * [#{issue_type issue}] [Issue-#{issue.number}](https://github.com/#{REPO}/issues/#{issue.number}) : #{issue.title}"
@@ -191,7 +159,7 @@ def generate_milestone_markdown milestone
 end
 
 def milestone version
-  closedMilestones = Octokit.milestones REPO, {:state => "closed"}
+  closedMilestones = @octokit.milestones REPO, {:state => "closed"}
 
   closedMilestones.each do |milestone|
     if milestone["title"] == version
@@ -199,7 +167,7 @@ def milestone version
     end
   end
 
-  openMilestones = Octokit.milestones REPO
+  openMilestones = @octokit.milestones REPO
 
   openMilestones.each do |milestone|
     if milestone["title"] == version

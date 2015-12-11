@@ -2,19 +2,12 @@
 # Cookbook Name: apache_zookeeper
 # Recipe:: install
 
-
-
 # Download remote file first. If we fail here, no need to continue
 version_tag   = "zookeeper-#{node['apache_zookeeper']['version']}"
-download_url  = ::File.join(node['apache_zookeeper']['mirror'], 
+download_url  = ::File.join(node['apache_zookeeper']['mirror'],
                             "#{version_tag}/#{version_tag}.tar.gz")
-download_path = ::File.join(Chef::Config[:file_cache_path], 
+download_path = ::File.join(Chef::Config[:file_cache_path],
                             "#{version_tag}.tar.gz")
-# This cannot be download from a mirror
-verify_url    = ::File.join(node['apache_zookeeper']['dist'], 
-                            "dist/zookeeper",
-                            "#{version_tag}/#{version_tag}.tar.gz.sha1")
-
 
 remote_file download_path do
   action :create_if_missing
@@ -29,7 +22,7 @@ end
 include_recipe "java" if node['apache_zookeeper']['install_java']
 
 # Create user/group accounts
-group node['apache_zookeeper']['group'] 
+group node['apache_zookeeper']['group']
 
 user node['apache_zookeeper']['user'] do
   comment 'Apache Zookeeper service account'
