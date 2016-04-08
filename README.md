@@ -99,7 +99,7 @@ Attributes
  * `node["apache_zookeeper"]["servers"]` : The array of fqdn/hostnames/ips for the zookeeper servers in the cluster (default=[])
  * `node["apache_zookeeper"]["follower_port"]` : The port used by zookeeper followers (default=2888)
  * `node["apache_zookeeper"]["election_port"]` : The port used for zookeeper elections (default=3888)
- * `node["apache_zookeeper"]["version"]` : The version of Zookeeper to install (default="3.4.5")
+ * `node["apache_zookeeper"]["version"]` : The version of Zookeeper to install (default="3.4.6")
  * `node["apache_zookeeper"]["mirror"]` : The URL to the mirror that hosts the zookeeper binary (default=`http://archive.apache.org/dist/zookeeper`)
  * `node["apache_zookeeper"]["binary_url"]` : The full binary url of Zookeeper. If you override this value make sure to provide a valid and up to date value for `node["apache_zookeeper"]["version"]` (default=`File.join node["apache_zookeeper"]["mirror"], "zookeeper-#{node["apache_zookeeper"]["version"]}", "zookeeper-#{node["apache_zookeeper"]["version"]}.tar.gz"`)
  * `node["apache_zookeeper"]["init_style"]` : The style of script to use for running the zookeeper service. Currently only supports `init`. (default = `init`)
