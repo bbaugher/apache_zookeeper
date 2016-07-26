@@ -68,7 +68,7 @@ module ZookeeperHelper
 
   def does_server_match_node? server
     # We check that the server value is either the nodes fqdn, hostname or ipaddress.
-    identities = [node["fqdn"], node["hostname"]]
+    identities = ['0.0.0.0', '::', node["fqdn"], node["hostname"]]
 
     node["network"]["interfaces"].each_value do |interface|
       interface["addresses"].each_key do |address|
