@@ -3,18 +3,16 @@
 # Recipe:: install
 
 # Download remote file first. If we fail here, no need to continue
-version_tag   = "zookeeper-#{node['apache_zookeeper']['version']}"
-download_url  = ::File.join(node['apache_zookeeper']['mirror'],
-                            "#{version_tag}/#{version_tag}.tar.gz")
-download_path = ::File.join(Chef::Config[:file_cache_path],
-                            "#{version_tag}.tar.gz")
+binary_file_name = File.basename(node['apache_zookeeper']['binary_url'])
+version_directory = File.basename(binary_file_name, '.tar.gz')
+download_path = ::File.join(Chef::Config[:file_cache_path], binary_file_name)
 
 remote_file download_path do
   action :create_if_missing
-  source download_url
+  source node['apache_zookeeper']['binary_url']
   backup false
   not_if { ::File.exist?(
-    ::File.join(node['apache_zookeeper']['install_dir'], version_tag)
+    ::File.join(node['apache_zookeeper']['install_dir'], version_directory)
   ) }
 end
 
@@ -43,7 +41,7 @@ execute "extract zookeeper source" do
   command "tar -xzf #{download_path} -C"\
     " #{node['apache_zookeeper']['install_dir']}"
   not_if { ::File.exist?(
-    ::File.join(node['apache_zookeeper']['install_dir'], version_tag)
+    ::File.join(node['apache_zookeeper']['install_dir'], version_directory)
   ) }
   notifies :run, "execute[set zookeeper install owner]", :immediately
 end
@@ -53,11 +51,11 @@ end
 execute "set zookeeper install owner" do
   command "chown -R "\
     "#{node['apache_zookeeper']['user']}:#{node['apache_zookeeper']['group']} "\
-    " #{::File.join(node['apache_zookeeper']['install_dir'], version_tag)}"
+    " #{::File.join(node['apache_zookeeper']['install_dir'], version_directory)}"
 end
 
 link ::File.join(node['apache_zookeeper']['install_dir'], "current") do
-  to ::File.join(node['apache_zookeeper']['install_dir'], version_tag)
+  to ::File.join(node['apache_zookeeper']['install_dir'], version_directory)
   link_type :symbolic
   owner 'root'
   group 'root'

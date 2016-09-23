@@ -4,14 +4,16 @@
 #
 # Apache Zookeeper global attributes
 
-
-
 #################  Installation attributes ###########################
 default["apache_zookeeper"]["install_java"] = true
 
 default["apache_zookeeper"]["install_dir"] = "/opt/zookeeper"
 default["apache_zookeeper"]["version"] = "3.4.6"
 default["apache_zookeeper"]["mirror"] = "http://archive.apache.org/dist/zookeeper"
+
+version_tag = "zookeeper-#{node['apache_zookeeper']['version']}"
+default['apache_zookeeper']['binary_url'] = ::File.join(node['apache_zookeeper']['mirror'],
+                  "#{version_tag}/#{version_tag}.tar.gz")
 
 # User/group creation and limits
 default['apache_zookeeper']['user'] = 'zookeeper'
