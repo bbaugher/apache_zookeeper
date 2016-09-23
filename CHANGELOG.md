@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.0.1 - 09-23-2016](https://github.com/bbaugher/apache_zookeeper/issues?milestone=14&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Bug] [Issue-43](https://github.com/bbaugher/apache_zookeeper/issues/43) : Readme references "binary_url", but the cookbook doesn't seem to actually have that
+
 [1.0.0 - 12-11-2015](https://github.com/bbaugher/apache_zookeeper/issues?milestone=13&state=closed)
 ---------------------------------------------------------------------------------------------------
 
