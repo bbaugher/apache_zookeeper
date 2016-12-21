@@ -41,7 +41,7 @@ stop() {
 }
 
 status() {
-    exec $exec status
+    su --shell /bin/bash $service_user -c "$exec status"
 }
 
 restart () {
