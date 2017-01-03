@@ -16,7 +16,7 @@
 ### END INIT INFO
 
 exec="<%= @zkserver_bin %>"
-config=${CONFIG:-/opt/zookeeper/current/conf/zoo.cfg}
+config=${CONFIG:-<%= ::File.join(node["apache_zookeeper"]["config_dir"], 'zoo.cfg') %>}
 service_user="<%= @zkuser %>"
 prog="zookeeper"
 

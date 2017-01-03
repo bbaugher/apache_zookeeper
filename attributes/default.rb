@@ -26,10 +26,10 @@ base_dir = ::File.join(node['apache_zookeeper']['install_dir'], 'current')
 default['apache_zookeeper']['local_state_dir'] = '/var/opt/zookeeper'
 local_state_dir = node['apache_zookeeper']['local_state_dir']
 
-default['apache_zookeeper']['config_dir'] = base_dir + '/conf'
-default['apache_zookeeper']['bin_dir'] =    base_dir + '/bin'
-default['apache_zookeeper']['data_dir'] =   local_state_dir + '/data'
-default['apache_zookeeper']['log_dir'] =    local_state_dir + '/log'
+default['apache_zookeeper']['config_dir'] = ::File.join(base_dir, 'conf')
+default['apache_zookeeper']['bin_dir'] = ::File.join(base_dir, 'bin')
+default['apache_zookeeper']['data_dir'] = ::File.join(local_state_dir, 'data')
+default['apache_zookeeper']['log_dir'] = ::File.join(local_state_dir, 'log')
 
 # This are used to configure a cluster
 default['apache_zookeeper']['servers'] = []
