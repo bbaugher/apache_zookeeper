@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+[1.1.0 - 01-03-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=15&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-45](https://github.com/bbaugher/apache_zookeeper/issues/45) : Running service status with the correct user
+  * [Bug] [Issue-40](https://github.com/bbaugher/apache_zookeeper/issues/40) : init.d scripts have the CONFIG path hardcoded.
+
 [1.0.1 - 09-23-2016](https://github.com/bbaugher/apache_zookeeper/issues?milestone=14&state=closed)
 ---------------------------------------------------------------------------------------------------
 
