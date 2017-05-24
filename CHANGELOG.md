@@ -4,8 +4,9 @@ Change Log
 [1.1.1 - 05-24-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=16&state=closed)
 ---------------------------------------------------------------------------------------------------
 
+  * [Bug] [Issue-47](https://github.com/bbaugher/apache_zookeeper/issues/47) : binary_url doesn't adhere to version or mirror
 
-[1.1.0 - 01-03-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=15&state=closed)
+[1.1.0 - 05-24-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=15&state=closed)
 ---------------------------------------------------------------------------------------------------
 
   * [Enhancement] [Issue-45](https://github.com/bbaugher/apache_zookeeper/issues/45) : Running service status with the correct user
@@ -90,3 +91,4 @@ Change Log
 --------------------------------------------------------------------------------------------------
 
   * [Feature] [Issue-1](https://github.com/bbaugher/apache_zookeeper/issues/1) : Initial Cookbook
+
