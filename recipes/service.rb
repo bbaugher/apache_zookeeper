@@ -1,4 +1,6 @@
 
+include_recipe 'apache_zookeeper::_attributes'
+
 supported_init_styles = %w{
   init
   systemd

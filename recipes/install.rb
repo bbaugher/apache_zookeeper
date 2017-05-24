@@ -2,6 +2,8 @@
 # Cookbook Name: apache_zookeeper
 # Recipe:: install
 
+include_recipe 'apache_zookeeper::_attributes'
+
 # Download remote file first. If we fail here, no need to continue
 binary_file_name = File.basename(node['apache_zookeeper']['binary_url'])
 version_directory = File.basename(binary_file_name, '.tar.gz')

@@ -1,5 +1,6 @@
 # encoding: UTF-8
 
+include_recipe 'apache_zookeeper::_attributes'
 
 dist_dir, conf_dir = value_for_platform_family(
   ['debian'] => %w{ debian default },

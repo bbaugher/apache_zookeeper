@@ -1,18 +1,15 @@
-# encoding: UTF-8
 # Cookbook Name:: apache_zookeeper
-# Re
 # Recipe:: configure
 
 # Create all the directories
-#class ::Chef::Recipe
-#  include ::ZookeeperHelper
-#end
 class ::Chef::Recipe
   include ::ZookeeperHelper
 end
 class ::Chef::Resource
   include ::ZookeeperHelper
 end
+
+include_recipe 'apache_zookeeper::_attributes'
 
 [
   node['apache_zookeeper']['config_dir'],
