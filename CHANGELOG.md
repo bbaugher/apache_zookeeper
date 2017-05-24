@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+[1.1.1 - 05-24-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=16&state=closed)
+---------------------------------------------------------------------------------------------------
+
+
 [1.1.0 - 01-03-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=15&state=closed)
 ---------------------------------------------------------------------------------------------------
 
