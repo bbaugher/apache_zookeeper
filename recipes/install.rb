@@ -4,6 +4,8 @@
 
 include_recipe 'apache_zookeeper::_attributes'
 
+case node['apache_zookeeper']['install']['type']
+when 'source'
 # Download remote file first. If we fail here, no need to continue
 binary_file_name = File.basename(node['apache_zookeeper']['binary_url'])
 version_directory = File.basename(binary_file_name, '.tar.gz')
@@ -39,7 +41,7 @@ directory node['apache_zookeeper']['install_dir'] do
   group node['apache_zookeeper']['group']
 end
 
-execute "extract zookeeper source" do
+execute 'extract zookeeper source' do
   command "tar -xzf #{download_path} -C"\
     " #{node['apache_zookeeper']['install_dir']}"
   not_if { ::File.exist?(
@@ -50,7 +52,7 @@ end
 
 # TODO: this should actually probably be owned by root and only data dirs, etc
 # owned by zookeeper user
-execute "set zookeeper install owner" do
+execute 'set zookeeper install owner' do
   command "chown -R "\
     "#{node['apache_zookeeper']['user']}:#{node['apache_zookeeper']['group']} "\
     " #{::File.join(node['apache_zookeeper']['install_dir'], version_directory)}"
@@ -70,4 +72,16 @@ template '/usr/bin/zkCli' do
   owner node['apache_zookeeper']['user']
   mode 00755
   backup false
+end
+when 'package'
+
+  include_recipe "java" if node['apache_zookeeper']['install_java']
+
+  if node['apache_zookeeper']['package']['version'].nil?
+    package 'zookeeperd'
+  else
+    package 'zookeeperd' do
+      version node['apache_zookeeper']['package']['version']
+    end
+  end
 end

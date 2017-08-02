@@ -11,16 +11,30 @@ end
 
 include_recipe 'apache_zookeeper::_attributes'
 
-[
-  node['apache_zookeeper']['config_dir'],
-  node['apache_zookeeper']['bin_dir'],
-  node['apache_zookeeper']['data_dir'],
-  node['apache_zookeeper']['log_dir'],
-].each do |dir|
-  directory dir do
-    recursive true
-    owner node['apache_zookeeper']['user']
-    group node['apache_zookeeper']['group']
+case node['apache_zookeeper']['install']['type']
+when 'source'
+  [
+    node['apache_zookeeper']['config_dir'],
+    node['apache_zookeeper']['bin_dir'],
+    node['apache_zookeeper']['data_dir'],
+    node['apache_zookeeper']['log_dir'],
+  ].each do |dir|
+    directory dir do
+      recursive true
+      owner node['apache_zookeeper']['user']
+      group node['apache_zookeeper']['group']
+    end
+  end
+when 'package'
+  [
+    node['apache_zookeeper']['data_dir'],
+    node['apache_zookeeper']['log_dir'],
+  ].each do |dir|
+    directory dir do
+      recursive true
+      owner node['apache_zookeeper']['user']
+      group node['apache_zookeeper']['group']
+    end
   end
 end
 
