@@ -11,7 +11,7 @@ dist_dir, conf_dir = value_for_platform_family(
 # Reload systemd on template change
 execute 'systemctl-daemon-reload' do
   command '/bin/systemctl --system daemon-reload'
-  subscribes :run, 'template[mesos-master-init]'
+  subscribes :run, 'template[/lib/systemd/system/zookeeper.service]'
   action :nothing
   only_if { node['apache_zookeeper']['init_style'] == 'systemd' }
 end
