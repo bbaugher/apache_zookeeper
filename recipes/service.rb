@@ -10,7 +10,7 @@ case node['apache_zookeeper']['init_style']
 when 'init'
   include_recipe "apache_zookeeper::service_#{init_style}"
 when 'systemd'
-  include_recipe "apache_zookeeper::service_#{systemd}"
+  include_recipe "apache_zookeeper::service_#{init_style}"
 else
   log 'Could not determine service init style, manual intervention required to'\
       ' start up the zookeeper service.'
