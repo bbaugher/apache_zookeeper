@@ -18,7 +18,7 @@ when 'source'
   node.default['apache_zookeeper']['log_dir'] = ::File.join(local_state_dir, 'log')
 when 'package'
   base_dir = node['apache_zookeeper']['install_dir'].sub 'opt', 'etc'
-  default.node['apache_zookeeper']['local_state_dir'] = '/var/lib/zookeeper'
+  node.default['apache_zookeeper']['local_state_dir'] = '/var/lib/zookeeper'
 
   local_state_dir = node['apache_zookeeper']['local_state_dir']
 
