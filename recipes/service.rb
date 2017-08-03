@@ -4,6 +4,7 @@
 
 include_recipe 'apache_zookeeper::_attributes'
 
+init_style = node['apache_zookeeper']['init_style']
 
 case node['apache_zookeeper']['init_style']
 when 'init'
