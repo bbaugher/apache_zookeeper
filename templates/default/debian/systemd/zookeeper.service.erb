@@ -2,9 +2,10 @@
 Description=Zookeeper server
 
 [Service]
-EnvironmentFile=- FIXME
-ExecStart= FIXME
-ExecReload= FIXME
+ExecStart=<%= @zkserver_bin %> start
+ExecStop=<%= @zkserver_bin %> stop
+ExecReload=<%= @zkserver_bin %> reload
+User=<%= @zkuser %>
 KillMode=process
 Restart=on-failure
 
