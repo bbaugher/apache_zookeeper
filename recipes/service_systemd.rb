@@ -17,7 +17,7 @@ execute 'systemctl-daemon-reload' do
 end
 
 template '/lib/systemd/system/zookeeper.service' do
-  source "#{dist_dir}/systemd/zookeeper.erb"
+  source "#{dist_dir}/systemd/zookeeper.service.erb"
   mode 0755
   case node['apache_zookeeper']['install']['type']
   when 'package'
