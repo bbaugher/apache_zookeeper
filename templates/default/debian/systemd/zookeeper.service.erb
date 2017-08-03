@@ -4,9 +4,8 @@ Description=Zookeeper server
 [Service]
 ExecStart=<%= @zkserver_bin %> start
 ExecStop=<%= @zkserver_bin %> stop
-ExecReload=<%= @zkserver_bin %> reload
 User=<%= @zkuser %>
-KillMode=process
+Type=forking
 Restart=on-failure
 
 [Install]
