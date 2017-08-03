@@ -5,10 +5,7 @@
 include_recipe 'apache_zookeeper::_attributes'
 
 dist_dir, conf_dir = value_for_platform_family(
-  ['debian'] => %w{ debian default },
-  ['fedora'] => %w{ redhat sysconfig },
-  ['rhel']   => %w{ redhat sysconfig },
-  ['suse']   => %w{ suse sysconfig }
+  ['debian'] => %w{ debian default }
 )
 
 # Reload systemd on template change
@@ -19,11 +16,21 @@ execute 'systemctl-daemon-reload' do
   only_if { node['apache_zookeeper']['init_style'] == 'systemd' }
 end
 
-template '/etc/systemd/system/zookeeper' do
-  source "#{dist_dir}/init.d/zookeeper.erb"
+template '/lib/systemd/system/zookeeper.service' do
+  source "#{dist_dir}/systemd/zookeeper.erb"
   mode 0755
-  variables :zkserver_bin => "#{node['apache_zookeeper']['bin_dir']}/zkServer.sh",
-    :zkuser => node['apache_zookeeper']['user']
+  case node['apache_zookeeper']['install']['type']
+  when 'package'
+    variables(
+      :zkserver_bin => "/usr/share/zookeeper/bin/zkServer.sh",
+      :zkuser => node['apache_zookeeper']['user']
+    )
+  else
+    variables(
+      :zkserver_bin => "#{node['apache_zookeeper']['bin_dir']}/zkServer.sh",
+      :zkuser => node['apache_zookeeper']['user']
+    )
+  end
   notifies :restart, 'service[zookeeper]', :delayed
 end
 
