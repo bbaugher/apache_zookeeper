@@ -1,0 +1,12 @@
+[Unit]
+Description=Zookeeper server
+
+[Service]
+ExecStart=<%= @zkserver_bin %> start
+ExecStop=<%= @zkserver_bin %> stop
+User=<%= @zkuser %>
+Type=forking
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

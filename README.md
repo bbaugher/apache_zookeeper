@@ -111,3 +111,5 @@ Attributes
  * `node["apache_zookeeper"]["config_dir"]` : The config directory for Zookeeper (default=`"#{node["apache_zookeeper"]["install_dir"]}/current/config"`)
  * `node["apache_zookeeper"]["zoo.cfg"][*]` : The key/values set for the `zoo.cfg` config file (see attributes file for defaults)
  * `node["apache_zookeeper"]["log4j.properties"][*]` : The key/values set for the `log4j.properties` config file (see attributes file for defaults)
+ * `node['apache_zookeeper']['install']['type']` : Type of zookeeper installation. Can be `source` or `package`
+ * `node['apache_zookeeper']['package']['version']` : Default `nil`. Set if you need not the latest version.
