@@ -4,10 +4,6 @@
 
 include_recipe 'apache_zookeeper::_attributes'
 
-dist_dir, conf_dir = value_for_platform_family(
-  ['debian'] => %w{ debian default }
-)
-
 # Reload systemd on template change
 execute 'systemctl-daemon-reload' do
   command '/bin/systemctl --system daemon-reload'
@@ -17,7 +13,7 @@ execute 'systemctl-daemon-reload' do
 end
 
 template '/lib/systemd/system/zookeeper.service' do
-  source "#{dist_dir}/systemd/zookeeper.service.erb"
+  source "systemd/zookeeper.service.erb"
   mode 0755
   case node['apache_zookeeper']['install']['type']
   when 'package'
