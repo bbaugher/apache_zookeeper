@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.2.0 - 08-04-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=17&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Feature] [Issue-48](https://github.com/bbaugher/apache_zookeeper/issues/48) : Package installation support
+
 [1.1.1 - 05-24-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=16&state=closed)
 ---------------------------------------------------------------------------------------------------
 
@@ -91,4 +96,3 @@ Change Log
 --------------------------------------------------------------------------------------------------
 
   * [Feature] [Issue-1](https://github.com/bbaugher/apache_zookeeper/issues/1) : Initial Cookbook
-
