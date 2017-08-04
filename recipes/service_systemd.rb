@@ -4,6 +4,11 @@
 
 include_recipe 'apache_zookeeper::_attributes'
 
+dist_dir, conf_dir = value_for_platform_family(
+  ['debian'] => %w{ debian default },
+  ['fedora'] => %w{ redhat sysconfig }
+)
+
 # Reload systemd on template change
 execute 'systemctl-daemon-reload' do
   command '/bin/systemctl --system daemon-reload'
