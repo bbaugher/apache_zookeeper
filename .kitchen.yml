@@ -11,11 +11,15 @@ provisioner:
   name: chef_solo
 
 platforms:
+  - name: ubuntu-16.04
   - name: ubuntu-14.04
   - name: centos-6.7
 
 suites:
   - name: default
+    includes:
+      - ubuntu-14.04
+      - centos-6.7
     run_list:
       # We only include apt because of an issue installing java where ubuntu
       # requires an apt-get update in order to successfully run
@@ -27,6 +31,26 @@ suites:
       java:
         jdk_version: "7"
       apache_zookeeper:
+        install_java: true
+        zoo.cfg:
+          bogus.for.cfg: value1
+        log4j.properties:
+          bogus.for.log4j: value2
+  - name: default-systemd
+    includes:
+      - ubuntu-16.04
+    run_list:
+      # We only include apt because of an issue installing java where ubuntu
+      # requires an apt-get update in order to successfully run
+      - recipe[apt]
+      - recipe[apache_zookeeper::install]
+      - recipe[apache_zookeeper::configure]
+      - recipe[apache_zookeeper::service]
+    attributes:
+      java:
+        jdk_version: "8"
+      apache_zookeeper:
+        init_style: systemd
         install_java: true
         zoo.cfg:
           bogus.for.cfg: value1

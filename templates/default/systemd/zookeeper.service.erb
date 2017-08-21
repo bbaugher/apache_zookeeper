@@ -2,6 +2,7 @@
 Description=Zookeeper server
 
 [Service]
+EnvironmentFile=/etc/default/zookeeper
 ExecStart=<%= @zkserver_bin %> start
 ExecStop=<%= @zkserver_bin %> stop
 User=<%= @zkuser %>
