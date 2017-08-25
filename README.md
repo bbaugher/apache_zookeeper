@@ -73,10 +73,10 @@ OR
 Environment Variables
 ---------------------
 
-Should note that the `zkServer.sh` and other various scripts provided by zookeeper taken in various environment variables to tweak
+Should note that the `zkServer.sh` and other various scripts provided by zookeeper use various environment variables to tweak
 runtime settings. Here are some,
 
- * `ZOO_LOG_DIR` : Overwrites log4j `zookeeper.log.file`. Defaults to `.` if not set which is why we provide a default value for it to the `node["apache_zookeeper"]["log_directory"]` value.
+ * `ZOO_LOG_DIR` : Overwrites log4j `zookeeper.log.file`. Defaults to `.` if not set which is why we provide a default value for it to the `node["apache_zookeeper"]["log_dir"]` value.
  * `ZOO_LOG4J_PROP` : Overwrites log4j `zookeeper.root.logger`. Defaults to `'INFO, CONSOLE'` if not set which is why we provide a default value for it `'INFO,CONSOLE,ROLLINGFILE'`
  * `JMXDISABLE` : Disables jmx. Defaults to enabling JMX. To disable set to any value
  * `SERVER_JVMFLAGS` : JVM flags for the server process

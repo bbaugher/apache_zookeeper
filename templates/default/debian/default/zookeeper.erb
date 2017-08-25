@@ -3,5 +3,9 @@
 CONFIG=<%= node['apache_zookeeper']['config_dir'] %>/zoo.cfg
 
 <% node['apache_zookeeper']['env_vars'].each do |key, value| -%>
+<% if node['apache_zookeeper']['init_style'] == 'systemd' %>
+<%= key %>=<%= value %>
+<% else %>
 export <%= key %>=<%= value %>
+<% end %>
 <%- end -%>
