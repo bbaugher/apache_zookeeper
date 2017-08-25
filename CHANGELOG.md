@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.3.0 - 08-25-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=18&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-50](https://github.com/bbaugher/apache_zookeeper/issues/50) : Correct README about log_dir and fix systemd
+
 [1.2.0 - 08-04-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=17&state=closed)
 ---------------------------------------------------------------------------------------------------
 
