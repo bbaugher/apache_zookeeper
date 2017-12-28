@@ -6,7 +6,8 @@ include_recipe 'apache_zookeeper::_attributes'
 
 dist_dir, conf_dir = value_for_platform_family(
   ['debian'] => %w{ debian default },
-  ['fedora'] => %w{ redhat sysconfig }
+  ['fedora'] => %w{ redhat sysconfig },
+  ['rhel']   => %w{ redhat sysconfig }
 )
 
 # Reload systemd on template change
