@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.4.0 - 01-02-2018](https://github.com/bbaugher/apache_zookeeper/issues?milestone=19&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-52](https://github.com/bbaugher/apache_zookeeper/issues/52) : Fix for CentOS 7 while executing "apache_zookeeper::service_systemd" recipe.
+
 [1.3.0 - 08-25-2017](https://github.com/bbaugher/apache_zookeeper/issues?milestone=18&state=closed)
 ---------------------------------------------------------------------------------------------------
 
