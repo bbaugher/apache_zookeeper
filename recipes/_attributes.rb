@@ -28,6 +28,7 @@ end
 node.default['apache_zookeeper']['config_dir'] = ::File.join(base_dir, 'conf')
 
 node.default['apache_zookeeper']['env_vars']['ZOO_LOG_DIR'] = node['apache_zookeeper']['log_dir']
+node.default['apache_zookeeper']['env_vars']['ZOOCFGDIR'] = node['apache_zookeeper']['config_dir']
 
 node.default['apache_zookeeper']['zoo.cfg']['dataDir'] = node['apache_zookeeper']['data_dir']
 
