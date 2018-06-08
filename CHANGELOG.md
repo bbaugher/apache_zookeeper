@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.5.0 - 06-08-2018](https://github.com/bbaugher/apache_zookeeper/issues?milestone=20&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-56](https://github.com/bbaugher/apache_zookeeper/issues/56) : Fix LSB init block to allow use of init script with systemd
+
 [1.4.0 - 01-02-2018](https://github.com/bbaugher/apache_zookeeper/issues?milestone=19&state=closed)
 ---------------------------------------------------------------------------------------------------
 
