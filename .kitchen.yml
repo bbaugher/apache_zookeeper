@@ -19,6 +19,7 @@ suites:
   - name: default
     includes:
       - ubuntu-14.04
+      - ubuntu-16.04
       - centos-6.7
     run_list:
       # We only include apt because of an issue installing java where ubuntu
