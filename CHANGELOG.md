@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.6.0 - 06-11-2018](https://github.com/bbaugher/apache_zookeeper/issues?milestone=21&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-54](https://github.com/bbaugher/apache_zookeeper/issues/54) : Fix init.d/systemd to read configuration from `config_dir`
+
 [1.5.0 - 06-08-2018](https://github.com/bbaugher/apache_zookeeper/issues?milestone=20&state=closed)
 ---------------------------------------------------------------------------------------------------
 
