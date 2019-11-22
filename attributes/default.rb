@@ -13,6 +13,7 @@ default['apache_zookeeper']['version'] = '3.4.10'
 default['apache_zookeeper']['mirror'] = 'http://archive.apache.org/dist/zookeeper'
 
 # User/group creation and limits
+default['apache_zookeeper']['service_timeout'] = 300 # 5 minutes
 default['apache_zookeeper']['user'] = 'zookeeper'
 default['apache_zookeeper']['group'] = 'zookeeper'
 default['apache_zookeeper']['nfiles'] = 32768
