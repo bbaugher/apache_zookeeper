@@ -15,4 +15,4 @@ depends "ulimit"
   supports os
 end
 
-version          '1.7.0'
+version          '1.8.0'
