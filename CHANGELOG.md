@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+[1.7.0 - 02-11-2020](https://github.com/bbaugher/apache_zookeeper/issues?milestone=22&state=closed)
+---------------------------------------------------------------------------------------------------
+
+  * [Enhancement] [Issue-57](https://github.com/bbaugher/apache_zookeeper/issues/57) : Fixed systemd deployment via ulimits and timeout
+
 [1.6.0 - 06-11-2018](https://github.com/bbaugher/apache_zookeeper/issues?milestone=21&state=closed)
 ---------------------------------------------------------------------------------------------------
 
