@@ -8,6 +8,8 @@ ExecStop=<%= @zkserver_bin %> stop
 User=<%= @zkuser %>
 Type=forking
 Restart=on-failure
+LimitNOFILE=<%= @zk_nfiles %>
+TimeoutSec=<%= @zk_timeout %>
 
 [Install]
 WantedBy=multi-user.target

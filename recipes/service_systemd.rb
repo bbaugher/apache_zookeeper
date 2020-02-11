@@ -24,11 +24,15 @@ template '/lib/systemd/system/zookeeper.service' do
   case node['apache_zookeeper']['install']['type']
   when 'package'
     variables(
+      :zk_nfiles => node['apache_zookeeper']['nfiles'],
+      :zk_timeout => node['apache_zookeeper']['service_timeout'],
       :zkserver_bin => "/usr/share/zookeeper/bin/zkServer.sh",
       :zkuser => node['apache_zookeeper']['user']
     )
   else
     variables(
+      :zk_nfiles => node['apache_zookeeper']['nfiles'],
+      :zk_timeout => node['apache_zookeeper']['service_timeout'],
       :zkserver_bin => "#{node['apache_zookeeper']['bin_dir']}/zkServer.sh",
       :zkuser => node['apache_zookeeper']['user']
     )

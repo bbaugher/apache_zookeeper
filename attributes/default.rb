@@ -13,9 +13,11 @@ default['apache_zookeeper']['version'] = '3.4.10'
 default['apache_zookeeper']['mirror'] = 'http://archive.apache.org/dist/zookeeper'
 
 # User/group creation and limits
+default['apache_zookeeper']['service_timeout'] = 300 # 5 minutes
 default['apache_zookeeper']['user'] = 'zookeeper'
 default['apache_zookeeper']['group'] = 'zookeeper'
-default['ulimit']['users'][node['apache_zookeeper']['user']]['filehandle_limit'] = 32768 # ~FC047
+default['apache_zookeeper']['nfiles'] = 32768
+default['ulimit']['users'][node['apache_zookeeper']['user']]['filehandle_limit'] = default['apache_zookeeper']['nfiles'] # ~FC047
 default['ulimit']['users'][node['apache_zookeeper']['user']]['process_limit'] = 1024 # ~FC047
 
 ################ Package Attributes #############################
